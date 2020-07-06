@@ -58,7 +58,7 @@ int main(int argc, char* argv[]) {
     return 0;
 } 
 ```
-Para compilar desde terminal:
+Compilamos desde terminal con [gcc](https://iie.fing.edu.uy/~vagonbar/gcc-make/gcc.htm):
 ```
 gcc Ejemplo_3_1_OpenMP.c - fopenmp
 ```
