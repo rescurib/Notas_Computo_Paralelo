@@ -1,4 +1,4 @@
-# Edición de codigo desde consola
+# Edición de código desde consola
 
 Se que existe el entorno [Eclipse IDE for Scientific Computing](https://www.eclipse.org/downloads/packages/release/2020-06/r/eclipse-ide-scientific-computing) pero no tuve suerte a la hora de ejecutar los programas desde ahí por lo que no puedo escribir una guía. Pueden probarlo si quieren, es sólo descomprimir y abrir el ejecutable y seguir la instrucciones en la ayuda. Por otro lado, a veces es más adecuado (y rápido después de ganar práctica) trabajar desde consola, en especial cuando se tiene acceso a un cluster remoto. Una manera comoda que he encontrado es usar Tmux y Vim. En esta carpeta se encuentran mis archivos de configuración para cada uno para verse así:
 
@@ -6,4 +6,57 @@ Se que existe el entorno [Eclipse IDE for Scientific Computing](https://www.ecli
 <img src="https://4.bp.blogspot.com/-0awjnbltYlc/XwKC5hZxDfI/AAAAAAAACW4/7UmWVscpbfMfJ_neJuoxm3CjCtAObs6PwCLcBGAsYHQ/s1600/Captura%2Bde%2Bpantalla%2Bde%2B2020-07-05%2B20-47-58.png" alt="alt text" width="850">
 </p>
 
-La configuración de Vim es una modificación menor de [The Ultimate vimrc](https://github.com/amix/vimrc). 
+La configuración de Vim es una modificación menor de [The Ultimate vimrc](https://github.com/amix/vimrc).
+
+## Tmux
+Tmux es un multiplexor de terminal que no solo te permite segmentar en ambas direcciones sino que tambien puede gestionar sesiones, lo cual resulta muy muy útil en loggins remotos porque puedes continuar con lo que estabas haciendo antes de salir. Para instalar en Debian y sus distros variantes:
+```
+sudo apt install tmux
+```
+Pueden aprender a usarlo con un solo [vídeo](https://www.youtube.com/watch?v=vwRxelWEuFE). Incluso con mi nota de ayuda basta.
+## Vim
+Advierto que lo van odiar al principio pero quizá terminen amandolo cuando memoricen los atajos. No es obligaatorio utilizarlo, nano está bien si ya están acostumbrados a él. Si no está instalado por defecto:
+```
+sudo apt install vim
+```
+[Aquí](https://www.youtube.com/watch?v=iWo1cDGlNDI) hay un video-tutorial en español.
+
+## Alias con notas de ayuda
+Yo no tengo tan buena memoria así que un truco que uso es crear alias que me impriman notas en la terminal. En este caso una que contiene los atajos que más uso en Tmux, Vim y en la terminal en general. Para esto escribimos en la temrinal:
+```
+nano ~/.bash_aliases
+```
+Cuando abra el editor (use nano porque si es la primera vez abren Vim batallarán en salir) añadiremos esta línea:
+
+```
+alias ayuda='cat /home/tuUsuario/notasVimTmux.txt'
+```
+Pueden poner el archivo en el directorio que quieran, ese sólo de ejemplo. Para actualizar el bash escriban:
+```
+exec bash
+```
+Ahora cada que escriban 'ayuda' la nota de texto aparecerá en la consola.
+
+## Otros comandos útiles
+Para mostrar el número de procesadores en su CPU:
+```
+nproc
+```
+Resumen de las caracteristicas de su CPU:
+```
+lscpu
+```
+
+Información detallada del CPU:
+```
+less /proc/cpuinfo
+```
+
+Historial de comandos:
+```
+history
+```
+Les mostrará una lista enumerada con los los ultimos comandos ejecutados. Si están en Tmux deberán presionar Ctrl+A+\[ para hacer scroll (q para salir). Pueden repertir la ejecución de un comando pasado útilizando su número. Por ejemplo:
+```
+!871
+```
