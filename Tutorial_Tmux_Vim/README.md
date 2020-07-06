@@ -37,6 +37,20 @@ exec bash
 ```
 Ahora cada que escriban 'ayuda' la nota de texto aparecerá en la consola.
 
+## Transferencia remota de archivos
+
+Si les dan acceso a un cluster seguramente van a necesitar estar transifiendo archivos entre hosts. Si conocen de antemano las ubicaciones y nombres de los archivos pueden utilizar el comando [scp](http://www.hypexr.org/linux_scp_help.php).
+
+De **local** --> **remoto**
+```
+scp /un/dir/local/archivo usuario@ipremota:/un/dir/remoto/archivo
+```
+De **remoto** --> **local**
+```
+scp usuario@ipremota:/un/dir/remoto/archivo /un/dir/local/archivo
+```
+Si no recuerdan el directorio o el nombre de archivo pueden usar (sftp)[https://www.blog.binaria.uno/2019/05/20/como-usar-sftp-para-transferir-archivos-forma-segura/]. Es un poco más complicado porque hay que recordar cuando estás ejecutando comandos en el el host remoto y cuando en el local. Se usa get y put para bajar (hacía el local) y subir archivos (hacía el remoto). También se puede hacer de [forma gráfica](http://www.ubuntufacil.com/2013/12/sftp-transferencia-de-archivos-segura-mediante-ssh/) con Nautilus o Filezila.
+
 ## Otros comandos útiles
 Para mostrar el número de procesadores en su CPU:
 ```
