@@ -69,7 +69,7 @@ Cuando no se pone la opción *-o* el archivo ejecutable de salida se llama por d
 Notarán que el orden de ejecución de los hilos es aleatoria. Por ejemplo, mi ejecución con 4 hilos fue:
 ```
 Hola, soy el hilo: = 0
-Número de hilos: 4                                                                                                                       
+Número de hilos: 4
 Hola, soy el hilo: = 1     
 Hola, soy el hilo: = 3
 Hola, soy el hilo: = 2
