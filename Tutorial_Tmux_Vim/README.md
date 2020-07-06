@@ -6,7 +6,7 @@ Se que existe el entorno [Eclipse IDE for Scientific Computing](https://www.ecli
 <img src="https://4.bp.blogspot.com/-0awjnbltYlc/XwKC5hZxDfI/AAAAAAAACW4/7UmWVscpbfMfJ_neJuoxm3CjCtAObs6PwCLcBGAsYHQ/s1600/Captura%2Bde%2Bpantalla%2Bde%2B2020-07-05%2B20-47-58.png" alt="alt text" width="850">
 </p>
 
-La configuración de Vim es una modificación menor de [The Ultimate vimrc](https://github.com/amix/vimrc).
+La configuración de Vim es una modificación menor de [The Ultimate vimrc](https://github.com/amix/vimrc). Los contenidos de los archivos _tmux.conf y _vimrc deben sustituir los contenidos de ~/.tmux.conf y ~/.vimrc (o crearlos si no existen).
 
 ## Tmux
 Tmux es un multiplexor de terminal que no solo te permite segmentar en ambas direcciones sino que tambien puede gestionar sesiones, lo cual resulta muy muy útil en loggins remotos porque puedes continuar con lo que estabas haciendo antes de salir. Para instalar en Debian y sus distros variantes:
