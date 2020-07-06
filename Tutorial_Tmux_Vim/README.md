@@ -49,7 +49,7 @@ De **remoto** --> **local**
 ```
 scp usuario@ipremota:/un/dir/remoto/archivo /un/dir/local/archivo
 ```
-Si no recuerdan el directorio o el nombre de archivo pueden usar (sftp)[https://www.blog.binaria.uno/2019/05/20/como-usar-sftp-para-transferir-archivos-forma-segura/]. Es un poco más complicado porque hay que recordar cuando estás ejecutando comandos en el el host remoto y cuando en el local. Se usa get y put para bajar (hacía el local) y subir archivos (hacía el remoto). También se puede hacer de [forma gráfica](http://www.ubuntufacil.com/2013/12/sftp-transferencia-de-archivos-segura-mediante-ssh/) con Nautilus o Filezila.
+Si no recuerdan el directorio o el nombre de archivo pueden usar [sftp](https://www.blog.binaria.uno/2019/05/20/como-usar-sftp-para-transferir-archivos-forma-segura/). Es un poco más complicado porque hay que recordar cuando estás ejecutando comandos en el el host remoto y cuando en el local. Se usa get y put para bajar (hacía el local) y subir archivos (hacía el remoto). También se puede hacer de [forma gráfica](http://www.ubuntufacil.com/2013/12/sftp-transferencia-de-archivos-segura-mediante-ssh/) con Nautilus o Filezila.
 
 ## Otros comandos útiles
 Para mostrar el número de procesadores en su CPU:
