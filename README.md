@@ -7,7 +7,7 @@ Estas notas están basadas en buena parte del libro [Multicore and GPU Programmi
 * foo
 * goo
 * Introducción a OpenMP
-* foo
+* Paralelización de ciclos *for*
 * goo
 
 ## Segunda Parte: Memoria Distribuida
