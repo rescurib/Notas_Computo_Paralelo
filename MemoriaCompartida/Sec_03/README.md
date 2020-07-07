@@ -42,7 +42,7 @@ int main(int argc, char* argv[]) {
     int nthreads, tid; // Num. de hilos, identificador 
   
     //-- Inicio de segmento de código paralelo --
-    #pragma omp parallel private(nthreads, tid) 
+    #pragma omp parallel 
     { 
         // Tomar identificador de hilo 
         tid = omp_get_thread_num(); 
