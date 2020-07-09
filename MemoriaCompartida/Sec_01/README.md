@@ -146,4 +146,9 @@ int main(int argc, char* argv[]) {
     return 0;
 } 
 ```
+
+Como este ejemplo usa *math.h* se debe agregar una bandera más:
+```
+gcc Ejemplo_1_2_OpenMP.c -fopenmp -lm
+```
 Esta forma de paralelizar puede funcionar para programas sencillos pero no muy práctico para 32 o 64 hilos. Aún con pocos hilos el reparto de tareas puede ser complicado y tedioso el escribir un código para cada hilo. En la próxima sección realizaremos ejemplos un poco más complejos y se explicarán formas más adeacuadas de escritura de código paralelo.
