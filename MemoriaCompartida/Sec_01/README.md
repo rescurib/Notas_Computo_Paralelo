@@ -41,7 +41,7 @@ export OMP_NUM_THREADS=8
 ```
 ## Ejemplo 3.1: Impresión de identificadores de hilo
 Cada hilo en el programa tiene un identificador o etiqueta diferente. El *Hola Mundo* de los programas parelos suele ser la impresión de
-estas estiquetas para verificar que la ejecución paralela se está llevando a cabo. El programa completo es:
+estas etiquetas para verificar que la ejecución multi-hilo o multi-proceso se este llevando a cabo de forma correcta. El programa completo es:
 ```C
 #include <omp.h> 
 #include <stdio.h> 
