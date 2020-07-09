@@ -43,7 +43,7 @@ debemos establecer el número de hilos de la siguente manera (8 por ejemplo):
 ```
 export OMP_NUM_THREADS=8
 ```
-## Ejemplo 3.1: Impresión de identificadores de hilo
+## Ejemplo 1.1: Impresión de identificadores de hilo
 Cada hilo en el programa tiene un identificador o etiqueta diferente. El *Hola Mundo* de los programas parelos suele ser la impresión de
 estas etiquetas para verificar que la ejecución multi-hilo o multi-proceso se este llevando a cabo de forma correcta. El programa completo es:
 ```C
@@ -74,7 +74,7 @@ int main(int argc, char* argv[]) {
 ```
 Compilamos desde terminal con [gcc](https://iie.fing.edu.uy/~vagonbar/gcc-make/gcc.htm):
 ```
-gcc Ejemplo_3_1_OpenMP.c - fopenmp
+gcc Ejemplo_1_1_OpenMP.c - fopenmp
 ```
 Cuando no se pone la opción *-o* el archivo ejecutable de salida se llama por defecto *a.out*. Para ejecutar simplemente escribimos:
 ```
@@ -89,3 +89,6 @@ Hola, soy el hilo: = 3
 Hola, soy el hilo: = 2
 ```
 En las próximas secciones verémos como establecer puntos de sincronización.
+
+## Ejemplo 1.2 Reparto manual de tareas (sin memoria compartidas)
+Supongamos que tenemos 4 rutinas que pueden ser ejecutadas de forma paralela ya que no hay dependencia de datos entre ellas pero cuyos resultados si son argumento de una 5ta rutina.
