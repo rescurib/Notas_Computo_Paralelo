@@ -1,4 +1,9 @@
 # Introducción a OpenMP
+## Concepto de hilo (*thread*)
+A grandes rasgos, un sistema operativo es un programa que administra la ejecución de otros programas. Una de sus tareas principales es mantener una tabla de tiempos para que los recursos de una computadora sean repartidos entre varias tareas. Se le llama **proceso** a un programa independiente en ejecución. En Linux se pueden ver los procesos en ejecución con el comando "ps -aux". Pero un proceso no es necesariamente una unidad desde el punto de vista del sistema operativo; el *hilo* si lo es. Todos los procesos tienen al menos un hilo (llamado hilo principal), pero pueden dividirse en más.
+
+
+
 OpenMP (*Open Multi-Processing*) es un API estandar para escribir aplicaciones paralelas de memoria compartida basada en el 
 concepto multi-hilo bajo un modelo *fork-join*:
 
