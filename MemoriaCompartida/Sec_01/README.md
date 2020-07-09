@@ -12,6 +12,10 @@ Todos los hilos tienen acceso a las variables globales del proceso pero cada hil
 OpenMP (*Open Multi-Processing*) es un API estandar para escribir aplicaciones paralelas de memoria compartida basada en el 
 concepto multi-hilo bajo un modelo *fork-join*:
 
+<p align="center">
+<img src="https://2.bp.blogspot.com/-Kzz9i3yd9Cw/XwaWxwcCXrI/AAAAAAAACXQ/cGX9Iqju33cfOVszt9uama15ITzCS5g6wCLcBGAsYHQ/s1600/Fork_Join.jpg" alt="alt text" width = 700>
+</p>
+
 Todos los hilos de OpenMP tienen acceso a la lectura y escritura de variables. Esta API está basado en *directivas*. Esto significa 
 la mayor parte de las istrucciones son macros que paralelizan un segmento de código de C o Fotran. Un ejemplo de directiva es:
 ```
