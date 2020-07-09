@@ -90,5 +90,5 @@ Hola, soy el hilo: = 2
 ```
 En las próximas secciones verémos como establecer puntos de sincronización.
 
-## Ejemplo 1.2 Reparto manual de tareas (sin memoria compartidas)
+## Ejemplo 1.2: Reparto manual de tareas (sin memoria compartida)
 Supongamos que tenemos 4 rutinas que pueden ser ejecutadas de forma paralela ya que no hay dependencia de datos entre ellas pero cuyos resultados si son argumento de una 5ta rutina.
