@@ -90,5 +90,60 @@ Hola, soy el hilo: = 2
 ```
 En las próximas secciones verémos como establecer puntos de sincronización.
 
-## Ejemplo 1.2: Reparto manual de tareas (sin memoria compartida)
-Supongamos que tenemos 4 rutinas que pueden ser ejecutadas de forma paralela ya que no hay dependencia de datos entre ellas pero cuyos resultados si son argumento de una 5ta rutina.
+## Ejemplo 1.2: Reparto manual de tareas
+Supongamos que tenemos 4 rutinas que pueden ser ejecutadas de forma paralela ya que no hay dependencia de datos entre ellas pero cuyos resultados si son argumento de una 5ta rutina. Llamemos a las rutinas paralelas $f_1$, $f_2$, $f_3$ y $f_4$. El segmento paralelo que se delimita por la directiva *#pragma openmp parallel* es ejecutado en todos los hilos, por lo que debemos indicar con if's que función le toca a cada hilo. El programa completo nos quedaría:
+```C
+#include <omp.h> 
+#include <stdio.h> 
+#include <stdlib.h>
+#include <math.h>
+
+double f1(double x){
+    return 4*sin(x)+6;
+}
+
+double f2(double x){
+    return 8*exp(-2*x);
+}
+
+double f3(double x){
+    return log10(x)+cos(x);
+}
+
+double f4(double x){
+    return 3*pow(x,6)+6*pow(x,5);
+}
+
+int main(int argc, char* argv[]) {
+
+    int tid; 
+    double a,b,c,d,y;
+
+    #pragma omp parallel shared(a,b,c,d) 
+    { 
+      // Obtener id de hilo  
+      tid = omp_get_thread_num();
+
+      //-- Reparto de tareas --                   
+      if(tid == 0)
+          a = f1(27.5);
+
+      if(tid == 1)
+          b = f2(0.43);
+      
+      if(tid == 2)
+          c = f3(16.3);
+     
+      if(tid == 3)
+          d = f4(2.3);
+      //---------------------- 
+    }
+    
+    //-- Ejecución serial
+    y = (a*b+c)*d;
+    printf("Resultado: %f\n",y);
+                
+    return 0;
+} 
+```
+Esta forma de paralelizar puede funcionar para programas sencillos pero no muy práctico para 32 o 64 hilos. Aún con pocos hilos el reparto de tareas puede ser complicado y tedioso el escribir un código para cada hilo. En la próxima sección realizaremos ejemplos un poco más complejos y se explicarán formas más adeacuadas de escritura de código paralelo.
