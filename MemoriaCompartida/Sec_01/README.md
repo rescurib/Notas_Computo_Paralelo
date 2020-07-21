@@ -37,15 +37,14 @@ Verificamos que OpenMP esté configurado en nuestro compilador:
 echo |cpp -fopenmp -dM |grep -i open
 ```
 
-Si todo está en orden debe mostrar algo similar a "#define _OPENMP 201511". Es impartante saber que antes de ejecutar nuestro codigo 
+Si todo está en orden debe mostrar algo similar a "#define _OPENMP 201511". Es importante saber que antes de ejecutar nuestro código 
 debemos establecer el número de hilos de la siguente manera (8 por ejemplo):
 
 ```
 export OMP_NUM_THREADS=8
 ```
 ## Ejemplo 1.1: Impresión de identificadores de hilo
-Cada hilo en el programa tiene un identificador o etiqueta diferente. El *Hola Mundo* de los programas parelos suele ser la impresión de
-estas etiquetas para verificar que la ejecución multi-hilo o multi-proceso se este llevando a cabo de forma correcta. El programa completo es:
+Cada hilo en el programa tiene un identificador o etiqueta diferente. El *Hola Mundo* de los programas paralelos suele ser la impresión de estas etiquetas para verificar que la ejecución multi-hilo o multi-proceso se este llevando a cabo de forma correcta. El programa completo es:
 ```C
 #include <omp.h> 
 #include <stdio.h> 
