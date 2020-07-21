@@ -16,8 +16,8 @@ concepto multi-hilo bajo un modelo *fork-join*:
 <img src="https://2.bp.blogspot.com/-Kzz9i3yd9Cw/XwaWxwcCXrI/AAAAAAAACXQ/cGX9Iqju33cfOVszt9uama15ITzCS5g6wCLcBGAsYHQ/s1600/Fork_Join.jpg" alt="alt text" width = 700>
 </p>
 
-Todos los hilos de OpenMP tienen acceso a la lectura y escritura de variables. Esta API está basado en *directivas*. Esto significa 
-la mayor parte de las istrucciones son macros que paralelizan un segmento de código de C o Fotran. Un ejemplo de directiva es:
+Todos los hilos de OpenMP tienen acceso a la lectura y escritura de variables. De aquí que el nombre de este tipo de paralelismo sea de memoria compartida (si el acceso a la información dependiera de mensajes entre procesos sobre una red de computadoras sería de memoria distribuida como se verá en el segundo bloque de estas notas). Esta API está basado en *directivas*. Esto significa 
+la mayor parte de las istrucciones son macros que paralelizan un segmento de código serial de C o Fotran. Un ejemplo de directiva es:
 ```
 #pragma omp parallel num threads(4)
 ```
