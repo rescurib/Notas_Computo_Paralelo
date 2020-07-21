@@ -22,9 +22,9 @@ la mayor parte de las istrucciones son macros que paralelizan un segmento de có
 #pragma omp parallel num threads(4)
 ```
 
-La API provee de funciónes que realizan otras operaciones. Un manual completo de todas las directivas, funciones y atributos 
-se puede encontrar en la documentación de GNU [libgomp](https://gcc.gnu.org/onlinedocs/libgomp/index.html). En estas notas se trataran 
-las implementaciones más comunes y utiles para paralelizar código a nivel de hilos en un programa en C.
+La API provee de funciones que realizan otras operaciones. Un manual completo de todas las directivas, funciones y atributos 
+se puede encontrar en la documentación de GNU [libgomp](https://gcc.gnu.org/onlinedocs/libgomp/index.html). En estas notas se tratarán 
+las implementaciones más comunes y útiles para paralelizar código a nivel de hilos en un programa en C.
 
 ### Instalación
 Es muy probable que OpenMP ya esté instaldo en un sistema Linux. En caso de que no, para sistemas basados en Debian:
