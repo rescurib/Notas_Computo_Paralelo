@@ -20,6 +20,9 @@ Todos los hilos de OpenMP tienen acceso a la lectura y escritura de variables. D
 la mayor parte de las istrucciones son macros que paralelizan un segmento de código serial de C o Fotran. Un ejemplo de directiva es:
 ```
 #pragma omp parallel num threads(4)
+{
+  //Código serial
+}
 ```
 
 La API provee de funciones que realizan otras operaciones. Un manual completo de todas las directivas, funciones y atributos 
