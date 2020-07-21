@@ -60,7 +60,7 @@ int main(int argc, char* argv[]) {
     {//-- Inicio de segmento de código paralelo --
         // Tomar identificador de hilo 
         tid = omp_get_thread_num(); 
-        printf("Hola, soy el hilo: = %d\n",tid); 
+        printf("Hola, soy el hilo: %d\n",tid); 
         
         // Si el hilo es el maestro
         if(tid == 0){ 
@@ -82,11 +82,11 @@ Cuando no se pone la opción *-o* el archivo ejecutable de salida se llama por d
 ```
 Notarán que el orden de ejecución de los hilos es aleatoria. Por ejemplo, mi ejecución con 4 hilos fue:
 ```
-Hola, soy el hilo: = 0
+Hola, soy el hilo: 0
 Número de hilos: 4
-Hola, soy el hilo: = 1     
-Hola, soy el hilo: = 3
-Hola, soy el hilo: = 2
+Hola, soy el hilo: 1     
+Hola, soy el hilo: 3
+Hola, soy el hilo: 2
 ```
 En las próximas secciones verémos como establecer puntos de sincronización.
 
@@ -119,7 +119,7 @@ int main(int argc, char* argv[]) {
     int tid; 
     double a,b,c,d,y;
 
-    #pragma omp parallel shared(a,b,c,d) 
+    #pragma omp parallel 
     { 
       // Obtener id de hilo  
       tid = omp_get_thread_num();
@@ -151,4 +151,4 @@ Como este ejemplo usa *math.h* se debe agregar una bandera más:
 ```
 gcc Ejemplo_1_2_OpenMP.c -fopenmp -lm
 ```
-Esta forma de paralelizar puede funcionar para programas sencillos pero no muy práctico para 32 o 64 hilos. Aún con pocos hilos el reparto de tareas puede ser complicado y tedioso el escribir un código para cada hilo. En la próxima sección realizaremos ejemplos un poco más complejos y se explicarán formas más adeacuadas de escritura de código paralelo.
+Esta forma de paralelizar puede funcionar para programas sencillos pero no es muy práctica cuando se quieren levantar 32 o 64 hilos. Aún con pocos hilos el reparto de tareas puede ser complicado y resulte tedioso el escribir un código para cada uno de ellos. En la próxima sección realizaremos ejemplos un poco más complejos que mostrarán formas más adeacuadas de escritura de código paralelo.
