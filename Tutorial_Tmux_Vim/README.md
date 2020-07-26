@@ -15,11 +15,11 @@ sudo apt install tmux
 ```
 Pueden aprender a usarlo con un solo [vídeo](https://www.youtube.com/watch?v=vwRxelWEuFE). Incluso con mi nota de ayuda basta.
 ## Vim
-Advierto que lo van odiar al principio pero quizá terminen amandolo cuando memoricen los atajos. No es obligaatorio utilizarlo, nano está bien si ya están acostumbrados a él. Si no está instalado por defecto:
+Advierto que lo van odiar al principio pero quizá terminen amandolo cuando memoricen los atajos. No es obligatorio utilizarlo, nano está bien si ya están acostumbrados a él. Si no está instalado por defecto:
 ```
 sudo apt install vim
 ```
-[Aquí](https://www.youtube.com/watch?v=iWo1cDGlNDI) hay un video-tutorial en español.
+[Aquí](https://www.youtube.com/watch?v=iWo1cDGlNDI) hay un video-tutorial en español para usar Vim. Vale mucho la pena aprenderlo.
 
 ## Alias con notas de ayuda
 Yo no tengo tan buena memoria así que un truco que uso es crear alias que me impriman notas en la terminal. En este caso una que contiene los atajos que más uso en Tmux, Vim y en la terminal en general. Para esto escribimos en la temrinal:
