@@ -38,6 +38,24 @@ exec bash
 ```
 Ahora cada que escriban 'ayuda' la nota de texto aparecerá en la consola.
 
+## Mover y renombrar carpetas y archivos
+
+Para mover un directorio y meterlo en otro (FolderA -> FolderB) usamos mv <fuente> <destino>:
+```
+mv FolderA /path/de/FolderB
+```
+Lo mismo sirve para archivos:
+```
+mv miArchivo.c /path/nuevo/miArchivo_puedes_renombrarlo_si_quieres.c
+```
+
+El comando mv sirve tambien para renombrar directorios
+```
+mv nombreViejo nombreNuevo
+```
+
+Tambien funciona para archivos pero es mejor utilizar *rename* porque te permite usar patrones complejos de renombramiento. [Aquí](http://stg-pepper.blogspot.com/2020/06/renombrar-archivos-automaticamente-en.html) escribir una entrada en mi blog sobre como utilizarlo.
+
 ## Transferencia remota de archivos
 
 Si les dan acceso a un cluster seguramente van a necesitar estar transifiendo archivos entre hosts. Si conocen de antemano las ubicaciones y nombres de los archivos pueden utilizar el comando [scp](http://www.hypexr.org/linux_scp_help.php).
