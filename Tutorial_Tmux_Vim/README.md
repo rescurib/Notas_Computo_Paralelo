@@ -54,7 +54,7 @@ El comando mv sirve tambien para renombrar directorios
 mv nombreViejo nombreNuevo
 ```
 
-Tambien funciona para archivos pero es mejor utilizar *rename* porque te permite usar patrones complejos de renombramiento. [Aquí](http://stg-pepper.blogspot.com/2020/06/renombrar-archivos-automaticamente-en.html) escribir una entrada en mi blog sobre como utilizarlo.
+Tambien funciona para archivos pero es mejor utilizar el comando *rename* porque te permite usar patrones complejos de renombramiento. [Aquí](http://stg-pepper.blogspot.com/2020/06/renombrar-archivos-automaticamente-en.html) hay una entrada que escribí en mi blog sobre como utilizarlo.
 
 ## Transferencia remota de archivos
 
