@@ -92,7 +92,7 @@ Hola, soy el hilo: 2
 En las próximas secciones verémos como establecer puntos de sincronización.
 
 ## Ejemplo 1.2: Reparto manual de tareas
-Supongamos que tenemos 4 rutinas que pueden ser ejecutadas de forma paralela ya que no hay dependencia de datos entre ellas pero cuyos resultados si son argumento de una 5ta rutina. Llamemos a las rutinas paralelas f1, f2, f3 y f4. El segmento paralelo que se delimita por la directiva *#pragma openmp parallel* es ejecutado en todos los hilos, por lo que debemos indicar con if's que función le toca a cada hilo. El programa completo nos quedaría:
+Supongamos que tenemos 4 rutinas que pueden ser ejecutadas de forma paralela ya que no hay dependencia de datos entre ellas pero cuyos resultados si son argumento de una 5ta rutina. Llamemos a las rutinas paralelas f1, f2, f3 y f4. Una manera sencilla de repartir el trabajo manualmente es asigmando cada función a una **sección**. El segmento paralelo que se delimita por la directiva *#pragma openmp parallel sections*. La asignación de la funcíon a un hilo se hace simplemente con la directiva *#parallel omp section* por encima de cada llado de la función. El programa completo nos quedaría:
 ```C
 #include <omp.h> 
 #include <stdio.h> 
@@ -140,4 +140,4 @@ Como este ejemplo usa *math.h* se debe agregar una bandera más:
 ```
 gcc Ejemplo_1_2_OpenMP.c -fopenmp -lm
 ```
-Esta forma de paralelizar puede funcionar para programas en dónde las tareas independientes sean fáciles de definir, pero no es muy práctica cuando se quieren levantar 32 o 64 hilos. Aún con pocos hilos el reparto de tareas puede ser complicado y resulte tedioso el escribir un código para cada uno de ellos. En la próxima sección realizaremos ejemplos un poco más complejos que mostrarán formas más dinámicas de escritura de código paralelo.
+Esta forma de paralelizar puede funcionar muy bien para programas en dónde las tareas independientes sean fáciles de definir, pero no es muy práctica cuando se quieren levantar 32 o 64 hilos. Aún con pocos hilos el reparto de tareas puede ser complicado y resulte tedioso el escribir un código para cada uno de ellos. Un ejemplo de esta situación es cuando una cada rutina paralela debe trabajar con diferentes segmentos de un arrglo de datos. En la próxima sección realizaremos ejemplos un poco más complejos que mostrarán formas más dinámicas de escritura de código paralelo.
