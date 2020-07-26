@@ -99,21 +99,13 @@ Supongamos que tenemos 4 rutinas que pueden ser ejecutadas de forma paralela ya 
 #include <stdlib.h>
 #include <math.h>
 
-double f1(double *y,double x){
-    *y = 4*sin(x)+6;
-}
+double f1(double *y,double x){*y = 4*sin(x)+6;}
 
-double f2(double *y,double x){
-    *y = 8*exp(-2*x);
-}
+double f2(double *y,double x){*y = 8*exp(-2*x);}
 
-double f3(double *y,double x){
-    *y = log10(x)+cos(x);
-}
+double f3(double *y,double x){*y = log10(x)+cos(x);}
 
-double f4(double *y,double x){
-    *y = 3*pow(x,6)+6*pow(x,5);
-}
+double f4(double *y,double x){*y = 3*pow(x,6)+6*pow(x,5);}
 
 int main(int argc, char* argv[]){
 
@@ -148,4 +140,4 @@ Como este ejemplo usa *math.h* se debe agregar una bandera más:
 ```
 gcc Ejemplo_1_2_OpenMP.c -fopenmp -lm
 ```
-Esta forma de paralelizar puede funcionar para programas sencillos pero no es muy práctica cuando se quieren levantar 32 o 64 hilos. Aún con pocos hilos el reparto de tareas puede ser complicado y resulte tedioso el escribir un código para cada uno de ellos. En la próxima sección realizaremos ejemplos un poco más complejos que mostrarán formas más adeacuadas de escritura de código paralelo.
+Esta forma de paralelizar puede funcionar para programas en dónde las tareas independientes sean fáciles de definir, pero no es muy práctica cuando se quieren levantar 32 o 64 hilos. Aún con pocos hilos el reparto de tareas puede ser complicado y resulte tedioso el escribir un código para cada uno de ellos. En la próxima sección realizaremos ejemplos un poco más complejos que mostrarán formas más dinámicas de escritura de código paralelo.
