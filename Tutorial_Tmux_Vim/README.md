@@ -30,6 +30,7 @@ Cuando abra el editor (use nano porque si es la primera vez abren Vim batallará
 
 ```
 alias ayuda='cat /home/tuUsuario/notasVimTmux.txt'
+alias rm='rm -i' # De paso este, les puede salvar la vida (pregunta antes de borrar algo)
 ```
 Pueden poner el archivo en el directorio que quieran, ese sólo de ejemplo. Para actualizar el bash:
 ```
