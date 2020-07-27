@@ -75,4 +75,4 @@ a = 13
 a = 10
 ```
 
-Existe un cláusula de alcance más llmada *lastprivate* pero sólo tiene sentido cuando hay una distribución de trabajo así que la dejaremos para la próxima sección. 
+Existe un cláusula de alcance más llmada *lastprivate* pero sólo puede entendenrse claramente cuando hay una distribución de trabajo así que la dejaremos para la próxima sección. 
