@@ -6,7 +6,7 @@ Estas notas están basadas en buena parte del libro [Multicore and GPU Programmi
 * Introducción a OpenMP
 * Variables privadas y compartidas
 * Paralelización de ciclos *for*
-* goo
+* Sincronización
 
 ## Segunda Parte: Memoria Distribuida
 * Introducción a MPI
