@@ -1,8 +1,8 @@
 # Variables privadas y compartidas
 
-Antes de continuar con los metodos de paralelización es importante hacer algunos ejercicios sobre el tema del alcance de variables. En la primera sección se mencionó que los hilos pueden acceder a las variables compartidas del proceso pero que también pueden tener variables locales que sólo pueden ser accedidas por los hilos que las poseen. Por defecto, la directiva *#pragma omp parallel* considera que todas las variables que aparezcan dentro de la sección que marca son variables compartidas a menos que se indique explícitamente que sean privadas. El no indicar que una variable debe actuar como privada para cada hilo cuando debería hacerlo en un algoritmo en particular, ocasionará un error lógico (no hará lo que esperas que haga). Para indicar que una variable debe ser manejada como privada en una sección paralela se agrega el atributo *private(miVar1,miVar2,...miVarN)*  a la directiva de sección paralela como se muestra en el siguiente ejemplo.
+Antes de continuar con los metodos de paralelización es importante hacer algunos ejercicios sobre el tema del alcance de variables. En la primera sección se mencionó que los hilos pueden acceder a las variables compartidas del proceso pero que también pueden tener variables locales que sólo pueden ser accedidas por los hilos que las poseen. Por defecto, la directiva *#pragma omp parallel* considera que todas las variables que aparezcan dentro de la sección que marca son variables compartidas a menos que se indique explícitamente que sean privadas. El no indicar que una variable debe actuar como privada para cada hilo cuando debería hacerlo en un algoritmo en particular, ocasionará un error lógico (no hará lo que esperas que haga). Para indicar que una variable debe ser manejada como privada en una sección paralela se agrega la cláusula *private(miVar1,miVar2,...miVarN)*  a la directiva de sección paralela como se muestra en el siguiente ejemplo.
 
-## Ejemplo 2.1: Atributo *private*
+## Ejemplo 2.1: Cláusula *private*
 
 ```C
 #include<omp.h>
@@ -38,7 +38,7 @@ a = 3
 a = 10
 
 ```
-## Ejemplo 2.2: Atributo *firstprivate*
+## Ejemplo 2.2: Cláusula *firstprivate*
 ¿Que ocurre si necesitamos que cada hilo mantenga el valor inicial de la sección serial? Para esto utilizamos el atributo *firstprivate*:
 ```C
 #include<omp.h>
@@ -64,6 +64,8 @@ int main(int argc,char *argv){
 }
 ```
 Ahora la salida será (nuevamente para 4 hilos):
+
+```
 ------- Sección Paralela -------
 a = 10
 a = 12
@@ -73,3 +75,4 @@ a = 13
 a = 10
 ```
 
+Existe un cláusula de alcance más llmada *lastprivate* pero sólo tiene sentido cuando hay una distribución de trabajo así que la dejaremos para la próxima sección. 
