@@ -78,7 +78,7 @@ a = 10
 Existe un cláusula de alcance más llmada *lastprivate* pero sólo puede entendenrse claramente cuando hay una distribución de trabajo así que la dejaremos para la próxima sección.
 
 ## Ejemplo 2.3 Uso de rand()
-Las funciones generadoras de números pseudoaleatorios tienen dos problemas a la hora de utilizarlas en u programa paralelo. El primero es que utilizan una variable de estado para generar el número siguiente. Si se usa la función *rand()* estandar hará que un programa paralelo sea más lento que su equivalente serial. El segundo problema es que además tendrán la misma semilla aletoria lo que hará que cada hilo genere el mismo número pseudoaleatorio. Estos dos probelmas se pueden solucionar de la siguiente manera:
+Las funciones generadoras de números pseudoaleatorios tienen dos problemas a la hora de utilizarlas en un programa paralelo. El primero es que utilizan una variable de estado para generar el número siguiente. Si se usa la función *rand()* estandar hará que un programa paralelo sea más lento que su equivalente serial porque los hilos dberán "pelear" por la misma variable compartida. El segundo problema es que además tendrán la misma semilla aletoria lo que hará que cada hilo genere el mismo número pseudoaleatorio. Estos dos probelmas se pueden solucionar de la siguiente manera:
 * Sustituir rand() por [rand_r()](http://manpages.org/rand_r)
 * Hacer privada la variable de estado de que utiliza rand_r(&edo)
 ```C
