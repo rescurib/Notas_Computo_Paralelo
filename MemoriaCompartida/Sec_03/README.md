@@ -1,0 +1,1 @@
+# Paralelización de bucles *for*
