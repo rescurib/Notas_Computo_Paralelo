@@ -135,7 +135,7 @@ La distribuión del ciclo for princpal de la función de multiplicación se hace
 ```C
 void mxv(int m, int n, double *A, double *v, double *u){
     int i, j;
-    #pragma omp prallel for
+    #pragma omp prallel for private(j)
     for(i=0; i<m; i++){
         a[i] = 0.0;
         for (j=0; j<n; j++)
