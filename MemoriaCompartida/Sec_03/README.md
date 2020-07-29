@@ -37,7 +37,7 @@ void mxv(int m, int n, double *A, double *v, double *u){
 
 Antes de continuar con la paralización hay unos cuantos recordatorios que es bueno hacer para los que siguen aprendiendo lenguaje C.
 
-### Asigmación de memoria dinámica
+### Asignación de memoria dinámica
 
 Cada proceso maneja un espacio de [memoria virtual](https://es.wikipedia.org/wiki/Memoria_virtual) cuya abstracción se ve así:
 
