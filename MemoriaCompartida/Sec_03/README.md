@@ -101,4 +101,31 @@ int readint(FILE *f) {
   return v;
 }
 ```
-Recordemos que..
+En el código en Python hemos establecido que los primeros bytes son para *m*, los isguientes para *n* y el resto para el contenido de la matriz. Entonces la función completa para la lectura es:
+
+```C
+int leerMatriz(char *nom_archivo,double **A,int *m,int *n){
+    int i,j;
+    double* temp;
+
+    //-- Leer desde archivo binario---    
+    FILE *file = fopen(nom_archivo, "rb");
+    
+    *m = readint(file); // Cargar número de filas
+    *n = readint(file); // Cargar número de columnas
+      
+    temp = (double*) malloc((*n)*(*m)*sizeof(double));
+ 
+    //-- Cargar datos --
+    for(i=0;i<*m;i++)
+       for(j=0;j<*n;j++)
+           temp[i*(*n)+j] = readdouble(file);
+
+    *A = temp;
+    fclose(file);
+
+    return 0;
+}
+```
+
+La lectura para vectores es similar pero se deja como referencia el archivo "leerBin.h".
