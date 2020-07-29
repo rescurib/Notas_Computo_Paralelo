@@ -7,9 +7,9 @@ Atajos básicos de Vim:
 <n>gg  - Ir a línea n
     v  - Seleccionar desde caracter (mover con flechas)
     V  - Seleccionar desde línea (mover con flechas)
-    y  - Copia selección
+    y  - Copiar selección
   x,d  - Borrar selección, cortar selección
-    yy - Copia línea actual
+    yy - Copiar línea actual
     p  - Pegar (tambien pega línea borrada con "dd")
 
 Comandos Tmux:
