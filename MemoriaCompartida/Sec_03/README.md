@@ -19,7 +19,46 @@ Pueden verificar esto compilando y ejecutando el Ejemplo_3_1_OpenMP.c. La variab
 ## Ejemplo 3.2: Producto Matriz-Vector
 Sea *A* una matriz *nxm* y *v* un vector de dimensión *m*, el producto *u = Av* se define como:
 
-$u_i = \sum^n_{j=0}$
+<p align="center">
+<img src="https://2.bp.blogspot.com/-kbVtAk852uc/XyDm5h7gLmI/AAAAAAAACXw/YJh4a7AUhJsMqyscgYz3dJ04zop6rSSNgCLcBGAsYHQ/s1600/matriz_vector.png" alt="alt text">
+</p>
+
+Podemos escribir una función en C que implemente el **algoritmo serial** de la multiplicación matriz-vector de la siguiente forma:
+```C
+void mxv(int m, int n, double *A, double *v, double *u){
+    int i, j;
+    for(i=0; i<m; i++){
+        a[i] = 0.0;
+        for (j=0; j<n; j++)
+            u[i] += A[i*n+j]*v[j];
+   }
+}
+````
+
+Antes de continuar con la paralización hay unos cuantos recordatorios que es bueno hacer para los que siguen aprendiendo lenguaje C.
+
+### Asigmación de memoria dinámica
+
+Cada proceso maneja un espacio de [memoria virtual](https://es.wikipedia.org/wiki/Memoria_virtual) cuya abstracción se ve así:
+
+<p align="center">
+<img src="https://i.stack.imgur.com/HOY4C.png" alt="alt text" height = 350>
+</p>
+
+Cuando se declara una variable o arreglo de la manera tradicional lo que hace el sistema operativo es colocarlas en la región llamada *stack*. Mientras estas variables no sean muy grandes no habrá mayor problema. Pero cuando se va trabajar con datos muy grandes es muy importante realizar delaraciones dinámicas de memeoria para no llenar al *stack* (cuando eso ocurre se llama *stackoverflow*). Las variables declaradas de forma dinámica se mandan al *heap*.
+
+La manera correcta de declarar matrices en programas paralelos es como un arreglo lineal contiguo:
+
+<p align="center">
+<img src="https://3.bp.blogspot.com/-EGF6HYLyjo8/XyDzqT1ZuII/AAAAAAAACX8/diyAq83DWgUk7FvVZEycc41-Sk1l-KzzQCLcBGAsYHQ/s1600/ArregloLineal_Matriz.png">
+</p>
+
+En C hacemos una declaración de memoria dinamica con *malloc()*:
+
+```C
+int *A = (int*)malloc(m*n*sizeof(int*)); 
+````
+Ahora ya debe quedar clara la razón de la línea: *u[i] += A[i*n+j]*v[j];*.
 
 ### Escritura de archivos binarios desde Python
 En esta sección vamos a usar vectores y matrices monstrusas por lo que vamos a escribir primero un script en Python para crear ficheros binarios. Este ejercicio tambien es intencional porque en la práctica se suele usar lenguajes como Python o R para hacer preprocesado de datos antes de ponerles todo el poder de C/C++ paralelo y es bueno saber crear ficheros densos y no archivos de texto que son muy ineficientes en memoria. Aquí una forma:
