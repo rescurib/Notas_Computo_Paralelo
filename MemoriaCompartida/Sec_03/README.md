@@ -83,3 +83,22 @@ f.write(Data_bytes)
 f.close()
 ```
 Lo que estamos haciendo es crear un archivo en donde los primeros 4 bytes son el número de filas en formato *int*, los siguientes 4 son el número de columnas y el resto de los bytes son la matriz A en formato *double*.
+
+### Lectura de ficheros binarios desde C
+
+Vamos a utilizar las siguientes funciones para convertir bytes crudos en datos *double* e *int*:
+
+```C
+float readfloat(FILE *f) {
+  float v;
+  fread((void*)(&v), sizeof(v), 1, f);
+  return v;
+}
+
+int readint(FILE *f) {
+  int v;
+  fread((void*)(&v), sizeof(v), 1, f);
+  return v;
+}
+```
+Recordemos que..
