@@ -56,7 +56,7 @@ La manera correcta de declarar matrices en programas paralelos es como un arregl
 En C hacemos una declaración de memoria dinamica con *malloc()*:
 
 ```C
-int *A = (int*)malloc(m*n*sizeof(int*)); 
+int *A = (int*)malloc(m*n*sizeof(int)); 
 ````
 Ahora ya debe quedar clara la razón de la línea: *u[i] += A[i*n+j]*v[j];*.
 
