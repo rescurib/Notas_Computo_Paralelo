@@ -128,4 +128,18 @@ int leerMatriz(char *nom_archivo,double **A,int *m,int *n){
 }
 ```
 
-La lectura para vectores es similar pero se deja como referencia el archivo "leerBin.h".
+La lectura para vectores es similar pero se dejará como referencia revisar el archivo "leerBin.h".
+
+### Paralelización 
+La distribuión del ciclo for princpal de la función de multiplicación se hace simplemente colocando la directiva de la siguiente forma:
+```C
+void mxv(int m, int n, double *A, double *v, double *u){
+    int i, j;
+    #pragma omp prallel for
+    for(i=0; i<m; i++){
+        a[i] = 0.0;
+        for (j=0; j<n; j++)
+            u[i] += A[i*n+j]*v[j];
+   }
+}
+```
