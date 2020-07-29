@@ -1,20 +1,16 @@
-Comandos básicos de Vim:
-    dd - Borra línea entera						
-    o  - Abre nueva línea debajo de línea actual
-    O  - Abre nueva línea encima de línea actual 
-    x  - Borra caracter
-    r  - Remplaza caracter
+Atajos básicos de Vim:
+    i  - Entrar a modo de edición						
+    o  - Línea nueva debajo de actual + modo edición
+    O  - Línea nueva encima de actual + modo edición
     u  - Deshacer
-    /  - Inicia busqueda
+   dd  - Borrar línea actual
 <n>gg  - Ir a línea n
     v  - Seleccionar desde caracter (mover con flechas)
-    V  - Seleccionar desde linea (mover con flechas)
+    V  - Seleccionar desde línea (mover con flechas)
     y  - Copia selección
+  x,d  - Borrar selección, cortar selección
     yy - Copia línea actual
     p  - Pegar (tambien pega línea borrada con "dd")
-
-Otros:
-    ctrl+shift+v - pegar (en modo edición)
 
 Comandos Tmux:
    Ctrl+A+Shift+5  - Split vertical
@@ -27,8 +23,5 @@ Comandos Tmux:
 Consola:
   Ctrl+u         - Borra todo antes del cursor
   Ctrl+k         - Borra todo después del cursos
-  Ctrl+A         - Inicio de línea
-  Ctrl+e         - Final de línea
-  Ctrl+<flechas> - Moverse entre argumentos
-  Ctrl+l         - limpiar pantalla
+  Ctrl+l         - Limpiar pantalla
    
