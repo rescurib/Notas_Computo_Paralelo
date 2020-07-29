@@ -1,6 +1,5 @@
 Comandos básicos de Vim:
-    dd - Borra línea entera					
-    p  - Pega línea borrada con "dd" debajo de linea actual	
+    dd - Borra línea entera						
     o  - Abre nueva línea debajo de línea actual
     O  - Abre nueva línea encima de línea actual 
     x  - Borra caracter
@@ -8,7 +7,11 @@ Comandos básicos de Vim:
     u  - Deshacer
     /  - Inicia busqueda
 <n>gg  - Ir a línea n
-    yy - Copia linea actual
+    v  - Seleccionar desde caracter (mover con flechas)
+    V  - Seleccionar desde linea (mover con flechas)
+    y  - Copia selección
+    yy - Copia línea actual
+    p  - Pegar (tambien pega línea borrada con "dd")
 
 Otros:
     ctrl+shift+v - pegar (en modo edición)
