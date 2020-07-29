@@ -58,7 +58,7 @@ En C hacemos una declaración de memoria dinamica con *malloc()*:
 ```C
 double *A = (double*)malloc(m*n*sizeof(double)); 
 ````
-Ahora ya debe quedar clara la razón de la línea: *u[i] += A[i*n+j]*v[j];*.
+Ahora ya debe quedar clara la razón de la línea: *u[i] += A[i\*n+j]\*v[j];*.
 
 ### Escritura de archivos binarios desde Python
 En esta sección vamos a usar vectores y matrices monstrusas por lo que vamos a escribir primero un script en Python para crear ficheros binarios. Este ejercicio tambien es intencional porque en la práctica se suele usar lenguajes como Python o R para hacer preprocesado de datos antes de ponerles todo el poder de C/C++ paralelo y es bueno saber crear ficheros densos y no archivos de texto que son muy ineficientes en memoria. Aquí una forma:
