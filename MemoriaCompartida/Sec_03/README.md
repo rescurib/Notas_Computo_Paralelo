@@ -122,7 +122,7 @@ He elegido este algorimo porque es muy lento y hará más notorio el *speedup* a
 <img src="https://upload.wikimedia.org/wikipedia/commons/0/06/Bubble-sort.gif">
 </p>
 
-Aquí una implementación en C:
+Implementado en C nos queda:
 ```C
 void intercambiar(double *a, double *b){ 
     double t = *a; 
