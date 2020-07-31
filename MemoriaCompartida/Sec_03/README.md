@@ -16,7 +16,7 @@ for(i=0;i<100;i++){
 ```
 Pueden verificar esto compilando y ejecutando el Ejemplo_3_1_OpenMP.c. La variable de iteración (*i* en este ejemplo) se vuelve privada automáticamente. La directiva para los bucles tambien conciderá por defecto a todas las demás varibales como compartidas por lo que se deberá indicar explicitamente como privadas aquellas que lo requieran. 
 
-Todo muy sencillo, pero en este punto hay una mala noticia que dar. Aunque la directiva de paralelización de ciclos es muy simple y directa, es dificil configurarla de manera que tenga alto desempeño para algoritmos que realicen operaciónes fundamentales. Esto no se suele mencionar en los tutoriales y como resultado Stack Overflow está lleno de gente preguntado porque sus ejemplos, de apariencia inofensiva, tienen igual o peor desempeño que sus versiones seriales. Normalmente los ejemplos que se dan al principio son operaciones matriciales u operaciones a lo largo de un array y este tipo de algoritmos son vulnerables a problemas como desalinamiento de datos o [false sharing](https://docs.oracle.com/cd/E19205-01/819-5270/aewcy/index.html) a la hora de implementarlos con varios hilos. Se pueden corregir pero hay que tener un entendimiento de arquitectura de computadoras y esos temas están fuera del scope de estas notas. Pero era necesario advertirlo para evitarles frustración innecesaria. La buena noticia es que en la práctica muchas veces no es necesario hacer un paralelismo a ese nivel de operaciones fundamentales. Ya existen bibliotecas que implementan operaciones matriciales eficientes como BLAS, LAPAC y ATLAS. Lo importante es concentrarse a nivel de subprocesos (en el contexto de un procedimiento o simulación numérica). Los siguientes dos ejemplos tal vez no serán tan sencillos o intutivos para todos, pero mostrarán despeño paralelo funcional.     
+Todo muy sencillo hasta acá, pero en este punto hay una mala noticia que dar. Aunque la directiva de paralelización de ciclos es muy simple y directa, es dificil configurarla de manera que tenga alto desempeño para algoritmos que realicen operaciones fundamentales. Esto no se suele mencionar en los tutoriales y como resultado Stack Overflow está lleno de gente preguntado porque sus ejemplos, de apariencia inofensiva, tienen igual o peor desempeño que sus versiones seriales. Normalmente los ejemplos que se dan al principio son operaciones matriciales u operaciones a lo largo de un array y este tipo de algoritmos son vulnerables a problemas como desalineamiento de datos o [false sharing](https://docs.oracle.com/cd/E19205-01/819-5270/aewcy/index.html) a la hora de implementarlos con varios hilos. Se pueden corregir pero hay que tener un entendimiento de arquitectura de computadoras y esos temas están fuera del scope de estas notas. Pero es necesario advertirlo para evitarles frustración innecesaria. La buena noticia es que en la práctica muchas veces no es necesario hacer un paralelismo a ese nivel de operaciones fundamentales. Ya existen bibliotecas que implementan operaciones matriciales eficientes como BLAS, LAPAC y ATLAS. Lo importante es concentrarse a nivel de subprocesos (en el contexto de un procedimiento o simulación numérica). Los siguientes dos ejemplos tal vez no serán tan sencillos o intutivos para todos, pero mostrarán despeño paralelo funcional.     
 
 ## Paréntesis: Memoria dinámica y lectura/escritura de ficheros
 
@@ -115,8 +115,31 @@ int leerMatriz(char *nom_archivo,double **A,int *m,int *n){
 
 La lectura para vectores es similar pero se dejará como referencia revisar el archivo "leerBin.h".
 
-### Paralelización 
-La distribuión del ciclo for princpal de la función de multiplicación se hace simplemente colocando la directiva de la siguiente forma:
-```C
+## Ejemplo 3.2 Algoritmo *bubble sort* paralelo
+He elegido este algorimo porque es muy lento y hará más notorio el *speedup* al implementar su versión paralela. [Aquí](https://www.youtube.com/watch?v=P_xNb8nFgmA) hay una explicación del algoritmo pero el siguiente gif vale más que mil palabras:
 
+<p align="center">
+<img src="https://upload.wikimedia.org/wikipedia/commons/0/06/Bubble-sort.gif">
+</p>
+
+Aquí una implementación en C:
+```C
+void intercambiar(double *a, double *b){ 
+    double t = *a; 
+    *a = *b; 
+    *b = t; 
+} 
+
+//------ BubbleSort Serial -----
+int bubbleSort_Serial(double v[],int N){
+    int i,j;
+    for (i = 0; i < N-1; i++) 
+        for (j = 0; j < N-i-1; j++) 
+            if (v[j] > v[j+1]){
+                intercambiar(&v[j+1],&v[j]);                   
+            }
+    }
 ```
+He hecho estas notas pensando en mis amigos de ciencias naturales y sé que no todo el mundo está familiarizado con la [complejidad computacional](https://www.fing.edu.uy/inco/cursos/teocomp/unidad02/transpSesion07.pdf). Pero creo que deteniendonos a pensar un momento podemos notar que si tenemos dos *for's* anidados que corren a lo largo de 0 hasta N realizando una operación por iteración, tendremos N\*N operaciones. A muy grandes rasgos, por eso se dice que este algoritmo tiene una complejidad de O(N^2) dónde N en este caso sería el número de elementos que hay que ordenar. ¿Pueden imaginarse a ustedes mismos ordenando N cartas de baraja inglesa con este algoritmo? ¿Qué pasaría si tuvieran un número K ~= N de personas ayudandoles de manera que cada persona realice una comparación e intercambio simultaneamente? Lo que ocurriría es que ahora el tiempo de ejecución crecería linealmente con respecto al número de cartas y creo que es intutitvo el hecho de que tardarían menos tiempo que si lo hicieran solos.
+
+Para la versión paralela usaremos la mágica directiva de OpenMP que ya sabemos usar pero vamos a tener que hacen un cambio importante en el algoritmo para volverlo paralelo. 
