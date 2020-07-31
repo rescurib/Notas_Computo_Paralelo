@@ -142,4 +142,21 @@ int bubbleSort_Serial(double v[],int N){
 ```
 He hecho estas notas pensando en mis amigos de ciencias naturales y sé que no todo el mundo está familiarizado con la [complejidad computacional](https://www.fing.edu.uy/inco/cursos/teocomp/unidad02/transpSesion07.pdf). Pero creo que deteniendonos a pensar un momento podemos notar que si tenemos dos *for's* anidados que corren a lo largo de 0 hasta N realizando una operación por iteración, tendremos N\*N operaciones. A muy grandes rasgos, por eso se dice que este algoritmo tiene una complejidad de O(N^2) dónde N en este caso sería el número de elementos que hay que ordenar. ¿Pueden imaginarse a ustedes mismos ordenando N cartas de baraja inglesa con este algoritmo? ¿Qué pasaría si tuvieran un número K ~= N de personas ayudandoles de manera que cada persona realice una comparación e intercambio simultaneamente? Lo que ocurriría es que ahora el tiempo de ejecución crecería linealmente con respecto al número de cartas y creo que es intutitvo el hecho de que tardarían menos tiempo que si lo hicieran solos.
 
-Para la versión paralela usaremos la mágica directiva de OpenMP que ya sabemos usar pero vamos a tener que hacen un cambio importante en el algoritmo para volverlo paralelo. 
+Para la versión paralela usaremos la mágica directiva de OpenMP que ya sabemos usar pero vamos a tener que hacer algunos cambios muy sutiles pero muy importantes en el algoritmo para volverlo paralelo. 
+
+```C
+//------ BubbleSort Paralelo -----
+int bubbleSort_Paralelo(double v[],int N){
+    int i=0, j=0; 
+    int inicio;
+    for(i=0;i<N-1;i++){
+	inicio = i % 2; 
+	#pragma omp parallel for default(none),shared(v,inicio,N)
+	for(j=inicio;j<N-1;j+=2){
+	    if(v[j] > v[j+1]){
+		intercambiar(&v[j],&v[j+1]);
+	    }
+	}
+    }      
+}
+```
