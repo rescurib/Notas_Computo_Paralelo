@@ -14,28 +14,13 @@ for(i=0;i<100;i++){
     printf("i = %d en hilo %d\n",i,omp_get_thread_num());
 }
 ```
-Pueden verificar esto compilando y ejecutando el Ejemplo_3_1_OpenMP.c. La variable de iteración (*i* en este ejemplo) se vuelve privada automáticamente. La directiva para los bucles tambien conciderá por defecto a todas las demás varibales como compartidas por lo que se deberá indicar explicitamente como privadas aquellas que lo requieran.   
+Pueden verificar esto compilando y ejecutando el Ejemplo_3_1_OpenMP.c. La variable de iteración (*i* en este ejemplo) se vuelve privada automáticamente. La directiva para los bucles tambien conciderá por defecto a todas las demás varibales como compartidas por lo que se deberá indicar explicitamente como privadas aquellas que lo requieran. 
 
-## Ejemplo 3.2: Producto Matriz-Vector
-Sea *A* una matriz *nxm* y *v* un vector de dimensión *m*, el producto *u = Av* se define como:
+Todo muy sencillo, pero en este punto hay una mala noticia que dar. Aunque la directiva de paralelización de ciclos es muy simple y directa, es dificil configurarla de manera que tenga alto desempeño para algoritmos que realicen operaciónes fundamentales. Esto no se suele mencionar en los tutoriales y como resultado Stack Overflow está lleno de gente preguntado porque sus ejemplos, de apariencia inofensiva, tienen igual o peor desempeño que sus versiones seriales. Normalmente los ejemplos que se dan al principio son operaciones matriciales u operaciones a lo largo de un array y este tipo de algoritmos son vulnerables a problemas como desalinamiento de datos o [false sharing](https://docs.oracle.com/cd/E19205-01/819-5270/aewcy/index.html) a la hora de implementarlos con varios hilos. Se pueden corregir pero hay que tener un entendimiento de arquitectura de computadoras y esos temas están fuera del scope de estas notas. Pero era necesario advertirlo para evitarles frustración innecesaria. La buena noticia es que en la práctica muchas veces no es necesario hacer un paralelismo a ese nivel de operaciones fundamentales. Ya existen bibliotecas que implementan operaciones matriciales eficientes como BLAS, LAPAC y ATLAS. Lo importante es concentrarse a nivel de subprocesos (en el contexto de un procedimiento o simulación numérica). Los siguientes dos ejemplos tal vez no serán tan sencillos o intutivos para todos, pero mostrarán despeño paralelo funcional.     
 
-<p align="center">
-<img src="https://2.bp.blogspot.com/-kbVtAk852uc/XyDm5h7gLmI/AAAAAAAACXw/YJh4a7AUhJsMqyscgYz3dJ04zop6rSSNgCLcBGAsYHQ/s1600/matriz_vector.png" alt="alt text">
-</p>
+## Paréntesis: Memoria dinámica y lectura/escritura de ficheros
 
-Podemos escribir una función en C que implemente el **algoritmo serial** de la multiplicación matriz-vector de la siguiente forma:
-```C
-void mxv(int m, int n, double *A, double *v, double *u){
-    int i, j;
-    for(i=0; i<m; i++){
-        a[i] = 0.0;
-        for (j=0; j<n; j++)
-            u[i] += A[i*n+j]*v[j];
-   }
-}
-````
-
-Antes de continuar con la paralización hay unos cuantos recordatorios que es bueno hacer para los que siguen aprendiendo lenguaje C.
+Antes de continuar con paralización de código hay unos cuantos recordatorios que es bueno hacer para los que siguen aprendiendo lenguaje C.
 
 ### Asignación de memoria dinámica
 
@@ -45,7 +30,7 @@ Cada proceso maneja un espacio de [memoria virtual](https://es.wikipedia.org/wik
 <img src="https://i.stack.imgur.com/HOY4C.png" alt="alt text" height = 350>
 </p>
 
-Cuando se declara una variable o arreglo de la manera tradicional lo que hace el sistema operativo es colocarlas en la región llamada *stack*. Mientras estas variables no sean muy grandes no habrá mayor problema. Pero cuando se va trabajar con datos muy grandes es muy importante realizar delaraciones dinámicas de memeoria para no llenar al *stack* (cuando eso ocurre se llama *stackoverflow*). Las variables declaradas de forma dinámica se mandan al *heap*.
+Cuando se declara una variable o arreglo de la manera tradicional lo que hace el sistema operativo es colocarlas en la región llamada *stack*. Mientras estas variables no sean muy grandes no habrá mayor problema. Pero cuando se va trabajar con datos muy grandes es muy importante realizar delaraciones dinámicas de memeoria para no llenar al *stack* (cuando eso ocurre se llama *stack overflow*). Las variables declaradas de forma dinámica se mandan al *heap*.
 
 La manera correcta de declarar matrices en programas paralelos es como un arreglo lineal contiguo:
 
@@ -61,7 +46,7 @@ double *A = (double*)malloc(m*n*sizeof(double));
 Ahora ya debe quedar clara la razón de la línea: *u[i] += A[i\*n+j]\*v[j];*.
 
 ### Escritura de archivos binarios desde Python
-En esta sección vamos a usar vectores y matrices monstrusas por lo que vamos a escribir primero un script en Python para crear ficheros binarios que los contengan y que serán leídos desde nuestros programas en C. Este ejercicio tambien es intencional porque en la práctica se suele usar lenguajes como Python o R para hacer preprocesado de datos antes de ponerles todo el poder de C/C++ paralelo y es bueno saber crear ficheros densos y no archivos de texto que son muy ineficientes en memoria. Aquí una forma:
+En esta sección y la siguiente vamos a usar vectores y matrices monstrusas por lo que vamos a escribir primero un script en Python para crear ficheros binarios que los contengan y que serán leídos desde nuestros programas en C. Este ejercicio tambien es intencional porque en la práctica se suele usar lenguajes como Python o R para hacer preprocesado de datos antes de ponerles todo el poder de C/C++ paralelo y es bueno saber crear ficheros densos y no archivos de texto que son muy ineficientes en memoria. Aquí una forma:
 ```Python
 import numpy as np
 
@@ -133,13 +118,5 @@ La lectura para vectores es similar pero se dejará como referencia revisar el a
 ### Paralelización 
 La distribuión del ciclo for princpal de la función de multiplicación se hace simplemente colocando la directiva de la siguiente forma:
 ```C
-void mxv(int m, int n, double *A, double *v, double *u){
-    int i, j;
-    #pragma omp prallel for private(j)
-    for(i=0; i<m; i++){
-        a[i] = 0.0;
-        for (j=0; j<n; j++)
-            u[i] += A[i*n+j]*v[j];
-   }
-}
+
 ```
