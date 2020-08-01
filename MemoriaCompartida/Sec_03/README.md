@@ -166,7 +166,7 @@ int bubbleSort_Paralelo(double v[],int N){
     }      
 }
 ```
-Notese que se han declarado explicitamente como variables compartidas a *v,inicio y N*. Antes de medir los tiempos de ejecución es importante que verifiquen la correctitud del código. De nada sirve un código paralelo que no hace bien las cosas. Prueben sus códigos con entradas pequeñas y comparenlos con la salida de su contraparte serial. Si el código es correcto, podemos pasar a medir tiempo de ejecución con la función omp_get_wtime(). La W hace referencia a "wall time", una analogía al tiempo de ejecución real si fuera medido con un reloj externo (en la pared). Esta funciona retorna el tiempo en segundo desde un punto de referencia en el pasado arbitrario por hilo. La documentación no dice que punto es este pero quizá sea el inicio del programa. En este ejemplo vamos a medir los tiempos de ejecución medidos por el hilo principal (es decir, no vamos a medir el tiempo de ejejcución para cada hilo para el caso paralelo) para comparar el algoritmo serial con el paralelo:
+Notese que se han declarado explicitamente como variables compartidas a *v,inicio y N*. Antes de medir los tiempos de ejecución es importante que verifiquen la correctitud del código. De nada sirve un código paralelo que no hace bien las cosas. Prueben sus códigos con entradas pequeñas y comparenlos con la salida de su contraparte serial. Si el código es correcto, podemos pasar a medir tiempo de ejecución con la función omp_get_wtime(). La W hace referencia a "wall time", una analogía al tiempo de ejecución real si fuera medido con un reloj externo (en la pared). Esta funciona retorna el tiempo en segundo desde un punto de referencia en el pasado arbitrario por hilo. La documentación no dice que punto es este pero quizá sea el inicio del programa. En este ejemplo vamos a medir los tiempos de ejecución medidos por el hilo principal (es decir, no vamos a medir el tiempo de ejecución para cada hilo para el caso paralelo) para comparar el algoritmo serial con el paralelo:
 
 ```C
 start = omp_get_wtime();
@@ -179,3 +179,11 @@ bubbleSort_Paralelo(u,N);
 end = omp_get_wtime();
 printf("T. de ejecución paralelo: %f s\n",end - start);
 ```
+Estos fueron los resultados para el ordenamiento de 30 mil números en orden inverso (peor caso) con 8 hilos en el cluster del IIMAS Unidad Mérida:
+```
+T. de ejecución serial: 34.182193 s
+T. de ejecución paralelo: 2.929234 s
+```
+¡11.78 más rápido!
+
+## Ejemplo 3.3 Filtro de máximos en 2D (paralelización de for's anidados)
