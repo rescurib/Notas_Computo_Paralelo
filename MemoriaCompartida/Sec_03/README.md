@@ -166,4 +166,16 @@ int bubbleSort_Paralelo(double v[],int N){
     }      
 }
 ```
-Notese que se han declarado explicitamente como variables compartidas a *v,inicio y N*. Antes de medir los tiempos de ejecución es importante que verifiquen la correctitud del código. De nada sirve un código paralelo que no hace bien las cosas. Prueben sus códigos con entradas pequeñas y comparenlos con la salida de su contraparte serial. Si el código es correcto, podemos pasar a medir tiempo de ejecución con la función omp_get_wtime().
+Notese que se han declarado explicitamente como variables compartidas a *v,inicio y N*. Antes de medir los tiempos de ejecución es importante que verifiquen la correctitud del código. De nada sirve un código paralelo que no hace bien las cosas. Prueben sus códigos con entradas pequeñas y comparenlos con la salida de su contraparte serial. Si el código es correcto, podemos pasar a medir tiempo de ejecución con la función omp_get_wtime(). La W hace referencia a "wall time", una analogía al tiempo de ejecución real si fuera medido con un reloj externo (en la pared). Esta funciona retorna el tiempo en segundo desde un punto de referencia en el pasado arbitrario por hilo. La documentación no dice que punto es este pero quizá sea el inicio del programa. En este ejemplo vamos a medir los tiempos de ejecución medidos por el hilo principal (es decir, no vamos a medir el tiempo de ejejcución para cada hilo para el caso paralelo) para comparar el algoritmo serial con el paralelo:
+
+```C
+start = omp_get_wtime();
+bubbleSort_Serial(v,N);
+end = omp_get_wtime();
+printf("T. de ejecución serial: %f s\n",end-start);
+
+start = omp_get_wtime();
+bubbleSort_Paralelo(u,N);
+end = omp_get_wtime();
+printf("T. de ejecución paralelo: %f s\n",end - start);
+```
