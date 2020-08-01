@@ -148,7 +148,7 @@ Para la versión paralela usaremos la mágica directiva de OpenMP que ya sabemos
 <img src="https://3.bp.blogspot.com/-mnOHT219w3I/XyTmPKbbFMI/AAAAAAAACYI/N9G-BoF2FyweU5Z5NxRD1FkNPSMnJgpiwCLcBGAsYHQ/s1600/bubblesort_paralelo.png">
 </p>
 
-El la práctica el número de hilos no será de N/2 pero el ahorro en tiempo con el código paralelo es considerable. El código en C paralelo es:
+El la práctica el número de hilos no será de N/2 pero el ahorro en tiempo con el código paralelo con más de un núcleo es considerable. El código en C paralelo es:
 
 ```C
 //------ BubbleSort Paralelo -----
