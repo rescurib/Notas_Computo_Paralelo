@@ -179,7 +179,7 @@ bubbleSort_Paralelo(u,N);
 end = omp_get_wtime();
 printf("T. de ejecución paralelo: %f s\n",end - start);
 ```
-Estos fueron los resultados para el ordenamiento de 30 mil números en orden inverso (peor caso) con 8 hilos en el cluster del IIMAS Unidad Mérida:
+Estos fueron los resultados para el ordenamiento de 30 mil números en orden inverso (peor caso) con 8 hilos ejecutado en uno de los nodos en el cluster del IIMAS Unidad Mérida:
 ```
 T. de ejecución serial: 34.182193 s
 T. de ejecución paralelo: 2.929234 s
