@@ -140,9 +140,15 @@ int bubbleSort_Serial(double v[],int N){
             }
     }
 ```
-He hecho estas notas pensando en mis amigos de ciencias naturales y sé que no todo el mundo está familiarizado con la [complejidad computacional](https://www.fing.edu.uy/inco/cursos/teocomp/unidad02/transpSesion07.pdf). Pero creo que deteniendonos a pensar un momento podemos notar que si tenemos dos *for's* anidados que corren a lo largo de 0 hasta N realizando una operación por iteración, tendremos N\*N operaciones. A muy grandes rasgos, por eso se dice que este algoritmo tiene una complejidad de O(N^2) dónde N en este caso sería el número de elementos que hay que ordenar. ¿Pueden imaginarse a ustedes mismos ordenando N cartas de baraja inglesa con este algoritmo? ¿Qué pasaría si tuvieran un número K ~= N de personas ayudandoles de manera que cada persona realice una comparación e intercambio simultaneamente? Lo que ocurriría es que ahora el tiempo de ejecución crecería linealmente con respecto al número de cartas y creo que es intutitvo el hecho de que tardarían menos tiempo que si lo hicieran solos.
+He hecho estas notas pensando en mis amigos de ciencias naturales y sé que no todo el mundo está familiarizado con la [complejidad computacional](https://www.fing.edu.uy/inco/cursos/teocomp/unidad02/transpSesion07.pdf). Pero creo que deteniendonos a pensar un momento podemos notar que si tenemos dos *for's* anidados que corren a lo largo de 0 hasta N realizando una operación por iteración, tendremos N\*N operaciones. A muy grandes rasgos, por eso se dice que este algoritmo tiene una complejidad de O(N^2) dónde N en este caso sería el número de elementos que hay que ordenar. ¿Pueden imaginarse a ustedes mismos ordenando N cartas de baraja inglesa con este algoritmo? ¿Qué pasaría si tuvieran un número N/2 de personas ayudandoles de manera que cada persona realice una comparación e intercambio simultaneamente? Lo que ocurriría es que ahora el tiempo de ejecución crecería linealmente con respecto al número de cartas y creo que es intutitvo el hecho de que tardarían menos tiempo que si lo hicieran solos.
 
-Para la versión paralela usaremos la mágica directiva de OpenMP que ya sabemos usar pero vamos a tener que hacer algunos cambios muy sutiles pero muy importantes en el algoritmo para volverlo paralelo. 
+Para la versión paralela usaremos la mágica directiva de OpenMP que ya sabemos usar pero vamos a tener que hacer algunos cambios muy sutiles pero muy importantes en el algoritmo para volverlo paralelo. Supongamos que 3 personas que van a ordenar 6 números. El detalle aquí es que si las misma personas comparan y reordenan el mismo par de cartas, las *burbujas* se estancarían. Lo que deben hacer es que durante las iteraciones impares N/2-1 personas deben hacer las comparaciones e intercambios en los pares de frontera entre los pares de la iteración anterior:
+
+<p align="center">
+<img src="https://3.bp.blogspot.com/-mnOHT219w3I/XyTmPKbbFMI/AAAAAAAACYI/N9G-BoF2FyweU5Z5NxRD1FkNPSMnJgpiwCLcBGAsYHQ/s1600/bubblesort_paralelo.png">
+</p>
+
+El la práctica el número de hilos no será de N/2 pero el ahorro en tiempo con el código paralelo es considerable. El código en C paralelo es:
 
 ```C
 //------ BubbleSort Paralelo -----
@@ -160,3 +166,4 @@ int bubbleSort_Paralelo(double v[],int N){
     }      
 }
 ```
+Notese que se han declarado explicitamente como variables compartidas a *v,inicio y N*. Antes de medir los tiempos de ejecución es importante que verifiquen la correctitud del código. De nada sirve un código paralelo que no hace bien las cosas. Prueben sus códigos con entradas pequeñas y comparenlos con la salida de su contraparte serial. Si el código es correcto, podemos pasar a medir tiempo de ejecución con la función omp_get_wtime().
