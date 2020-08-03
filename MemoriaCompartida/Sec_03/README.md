@@ -187,3 +187,20 @@ T. de ejecución paralelo: 2.929234 s
 ¡11.78 más rápido!
 
 ## Ejemplo 3.3 Filtro de máximos en 2D (paralelización de for's anidados)
+
+Este ejemplo es más sencillo. Tenemos una matriz A de dimensión *mxn* de la cual queremos generar una nueva matriz con los maximos locales de una vecindad 3x3 a lo largo y ancho de A. En este caso el código paralalelo sólo difiere del sería por una directiva:
+
+```C
+    #pragma omp parallel for collapse(2) 
+    for(i=1;i<m-1;i++)
+        for(j=1;j<n-1;j++)
+            B2[i*n+j] = maximo_local(A,i,j,n);
+```
+La cláusula *collapse(2)* indica que se deben paralelizar 2 ciclos anidados. Para que esta directiva funcione es necesario que no haya ninguna instrucción entre ambos for's. Si bien es posible aplicar esta directiva a más de dos ciclos, en varios foros he visto la advertencia de no usar más de dos.
+
+Los tiempos de ejecución para una matriz 10,000 x 10,000 con 8 hilos fueron:
+```
+T. de ejecución serial: 10.138153 s
+T. de ejecución paralelo: 1.302645 s
+```
+
