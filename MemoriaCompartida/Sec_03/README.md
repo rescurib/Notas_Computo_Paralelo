@@ -203,4 +203,34 @@ Los tiempos de ejecución para una matriz 10,000 x 10,000 con 8 hilos fueron:
 T. de ejecución serial: 10.138153 s
 T. de ejecución paralelo: 1.302645 s
 ```
+## Ejemplo 3.4 Integración numérica 
+Finalizaremos está sección con ejemplo que muestra una aplicación de la cláusula *reduction*. Se le llama **reducción** a la aplicación paralela de una operación a una misma variable compartida. Vamos a realizar una integración numérica por el método trapezoidal:
+<p align="center">
+<img src="http://theflyingkeyboard.net/wp-content/uploads/2018/09/Trapezoidal-Rule-Formula.png" width = 500>
+</p>
+<p align="center">
+<img src="http://theflyingkeyboard.net/wp-content/uploads/2018/09/Trapezoidal-Rule-M-Formula.png" width = 130>
+</p>
 
+El código de la función de integración paralela es:
+```C
+double integrar(double (*f)(double),double inicio, double final, int div){
+  double ResLocal = 0;
+  double step = (final - inicio) / div;
+  double x;
+  x = inicio;
+  ResLocal = f(inicio) + f(final);
+  ResLocal /= 2; 
+
+  #pragma omp parallel for private(x) reduction(+: ResLocal)
+  for (int i = 1; i < div; i++){
+      x = inicio + i * step;
+      ResLocal += f(x);
+    }
+
+  ResLocal *= step;
+
+  return ResLocal;
+}
+```
+Observen que la sintaxis de la cáusula es *reduction(<operación>: <variable>)*. Puede usarse con los operadores: +, -, *, &, |, ^, && y ||.
