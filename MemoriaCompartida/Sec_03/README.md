@@ -233,4 +233,4 @@ double integrar(double (*f)(double),double inicio, double final, int div){
   return ResLocal;
 }
 ```
-Observen que la sintaxis de la cláusula es *reduction(<operación>: <variable>)*. Puede usarse con los operadores: +, -, *, &, |, ^, && y ||.
+Observen que la sintaxis de la cláusula es *reduction(<operación>: <variable>)*. Puede usarse con los operadores: +, -, *, &, |, ^, && y ||. Para más detalles se recomienda consultar la [documentación](https://www.openmp.org/spec-html/5.0/openmpsu107.html) de esta cláusula.
