@@ -26,7 +26,7 @@ la mayor parte de las istrucciones son macros que paralelizan un segmento de có
 ```
 
 La API provee de funciones que realizan otras operaciones. Un manual completo de todas las directivas, funciones y atributos 
-se puede encontrar en la documentación de GNU [libgomp](https://gcc.gnu.org/onlinedocs/libgomp/index.html). En estas notas se tratarán 
+se puede encontrar en la documentación de [OpenMP 5.0](https://www.openmp.org/spec-html/5.0/openmp.html). En estas notas se tratarán 
 las implementaciones más comunes y útiles para paralelizar código a nivel de hilos en un programa en C.
 
 ### Instalación
