@@ -204,7 +204,7 @@ T. de ejecución serial: 10.138153 s
 T. de ejecución paralelo: 1.302645 s
 ```
 ## Ejemplo 3.4 Integración numérica 
-Finalizaremos está sección con ejemplo que muestra una aplicación de la cláusula *reduction*. Se le llama **reducción** a la aplicación paralela de una operación a una misma variable compartida. Vamos a realizar una integración numérica por el método trapezoidal:
+Finalizaremos está sección con ejemplo que muestra la utilidad de la cláusula *reduction*. Se le llama **reducción** a la aplicación paralela de una operación a una misma variable compartida. Vamos a realizar una integración numérica por el método trapezoidal:
 <p align="center">
 <img src="http://theflyingkeyboard.net/wp-content/uploads/2018/09/Trapezoidal-Rule-Formula.png" width = 500>
 </p>
@@ -233,4 +233,4 @@ double integrar(double (*f)(double),double inicio, double final, int div){
   return ResLocal;
 }
 ```
-Observen que la sintaxis de la cáusula es *reduction(<operación>: <variable>)*. Puede usarse con los operadores: +, -, *, &, |, ^, && y ||.
+Observen que la sintaxis de la cláusula es *reduction(<operación>: <variable>)*. Puede usarse con los operadores: +, -, *, &, |, ^, && y ||.
