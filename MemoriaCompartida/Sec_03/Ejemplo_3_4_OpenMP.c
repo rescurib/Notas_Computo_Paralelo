@@ -13,7 +13,7 @@ double integrar(double (*f)(double),double inicio, double final, int div){
   double x;
   x = inicio;
   ResLocal = f(inicio) + f (final);
-  ResLocal /= 2; // Punto medio
+  ResLocal /= 2; 
 
   // Una buena estrategia para programar es definir explicitamente el tipo de acceso a las variables compartidas 
   #pragma omp parallel for default(none) shared(step, div, st, f) private(x) reduction(+: ResLocal)
