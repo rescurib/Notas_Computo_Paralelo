@@ -35,3 +35,68 @@ Hilo 2 después de la barrera en 3.000314 s
 Hilo 3 después de la barrera en 3.002478 s
 ```
 ## Constructo *Critical*
+Es es un constructo multilinea. Lo que hace es obligar a todos los hilos en la sección a tomar turno para ejecutar la secuencia de instrucciónes dentro de la subsección *critical*.
+### Ejemplo 4.2 Impresión multiple ordenada
+Tomemos el siguiente segmento de código:
+```C
+    #pragma omp parallel private(tid)
+    { // Inicio de sección paralela
+       tid = omp_get_thread_num();
+ 
+       printf("Hilo %d: Línea 1\n",tid);
+       if(tid==2) sleep(1);
+       if(tid==1) sleep(3);
+       printf("Hilo %d: Línea 2\n",tid);
+       if(tid==0) sleep(2);
+       printf("Hilo %d: Línea 3\n",tid);
+   } // Fin de sección paralela
+   ```
+   Aquí hemos simulado nuevamente diferentes tiempos de ejecucíón de la misma sección para diferentes hilos. La continuidad de la salida será afectada por estas diferencias:
+   ```
+Hilo 0: Línea 1
+Hilo 0: Línea 2
+Hilo 2: Línea 1
+Hilo 3: Línea 1
+Hilo 3: Línea 2
+Hilo 3: Línea 3
+Hilo 1: Línea 1
+Hilo 2: Línea 2
+Hilo 2: Línea 3
+Hilo 0: Línea 3
+Hilo 1: Línea 2
+Hilo 1: Línea 3
+```
+Esto se resuelve estableciendo una región crítica:
+```C
+    #pragma omp parallel private(tid)
+    { // Inicio de sección paralela
+       tid = omp_get_thread_num();
+       #pragma omp critical
+       {
+          printf("Hilo %d: Línea 1\n",tid);
+          if(tid==2) sleep(1);
+          if(tid==1) sleep(3);
+          printf("Hilo %d: Línea 2\n",tid);
+          if(tid==0) sleep(2);
+          printf("Hilo %d: Línea 3\n",tid);
+      }
+   } // Fin de sección paralela
+```
+
+Este fue el resultado en mi ejecución:
+```
+Hilo 1: Línea 1
+Hilo 1: Línea 2
+Hilo 1: Línea 3
+Hilo 3: Línea 1
+Hilo 3: Línea 2
+Hilo 3: Línea 3
+Hilo 2: Línea 1
+Hilo 2: Línea 2
+Hilo 2: Línea 3
+Hilo 0: Línea 1
+Hilo 0: Línea 2
+Hilo 0: Línea 3
+```
+En este ejemplo hay dos cosas importantes que hay que comentar. Lo que se busca con la sección critica no es establecer un orden secuencial entre los hilos (en mi ejecion primero fue 1, luego 3, 2 y 0) sino un candado de turno en una región especifica en el programa. La segunda es que este candado puede tener el costo de volver más lenta la ejecución de esa sección. Depende del programador diseñar un algoritmo que equlibre esta desventaja en favor de la correctitud lógica del resultado. 
+
