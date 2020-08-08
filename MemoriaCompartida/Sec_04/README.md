@@ -100,3 +100,48 @@ Hilo 0: Línea 3
 ```
 En este ejemplo hay dos cosas importantes que hay que comentar. Lo que se busca con la sección critica no es establecer un orden secuencial entre los hilos (en mi ejecion primero fue 1, luego 3, 2 y 0) sino un candado de turno en una región especifica en el programa. La segunda es que este candado puede tener el costo de volver más lenta la ejecución de esa sección. Depende del programador diseñar un algoritmo que equlibre esta desventaja en favor de la correctitud lógica del resultado. 
 
+## Constructo *Atomic*
+Este contructo es similar a *critical* pero sólo aplica a operaciones sobre una misma variable. Este ejemplo demostrará por que es necesario.
+
+### Ejemplo 4.3 Reducción explcítica
+En la sección anterior se mostró como ralizar operaciones de reducción automaticamente con la cláusula *reduction*. En este ajemplo haremos la misma operación sin útilizar esa cláusula pero sólo para fines explicativos. Veamos el siguiente código que repite 5 veces la suma paralela de los primeros 500,000 enteros e imprime el resultado cada vez:
+```C
+    for(k=0;k<5;k++){
+        suma = 0;
+        #pragma omp parallel for
+        for(i=0;i<500000;i++)
+            #pragma omp atomic
+            suma = suma + i;
+
+        printf("Suma total: %d\n",suma);
+    }
+```
+Todo parece estar en orden hasta que lo ejecutamos:
+```
+Suma total: -1870266438
+Suma total: -517572889
+Suma total: 526321667
+Suma total: 1148492490
+Suma total: 76774993
+```
+¡5 resultados diferentes! Peor aún, hay resultados negativos. Si se vuelve a ejecutar se encontrarán con resultados aleatorios. La razon por la que ocurre esto tal vez no sea evidente. Este problema aparace porque en varios momentos en la ejecución un hilo esta apunto de hacer la operación Suma_nueva = Suma_vieja + i_local cunado otro hilo llega y cambia el valor de suma_vieja o de suma_nueva. [Este vídeo](https://www.youtube.com/watch?v=7ENFeb-J75k) del canal *Computerphile* explica muy bien esta situación. Para evitarla necesitamos poner un candado temporal a la variable compartida Suma para que sólo pueda ser accedida y modificada por un hilo a la vez. Arreglamos el código de la siguiente manera:
+```C
+for(k=0;k<5;k++){
+        suma = 0;
+        #pragma omp parallel for
+        for(i=0;i<500000;i++)
+            #pragma omp atomic
+            suma = suma + i;
+
+        printf("Suma total: %d\n",suma);
+    }
+ ```
+    Ahora los resultados son consistentes:
+```
+Suma total: 445698416
+Suma total: 445698416
+Suma total: 445698416
+Suma total: 445698416
+Suma total: 445698416
+```
+Las condiciones de uso completas de este contructo se pueden encontrar en la documentación de [Atomic](https://www.openmp.org/spec-html/5.0/openmpsu95.html#x126-4840002.17.7).
