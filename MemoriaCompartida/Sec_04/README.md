@@ -34,6 +34,29 @@ Hilo 1 después de la barrera en 3.000313 s
 Hilo 2 después de la barrera en 3.000314 s
 Hilo 3 después de la barrera en 3.002478 s
 ```
+## Cáusula *nowait* (rompimiento de barrera implícita)
+El caso contrario al anterior es cuando no hay conflictos lógicos en el programa y podemos darnos el lujo de que no haya hilos ociciosos. Para esto utilizamos la cláusula *nowait*.
+```C
+a();
+#pragma omp parallel
+{
+    b();
+    #pragma omp for nowait
+    for (int i = 0; i < 10; ++i) {
+        c(i);
+    }
+    d();
+}
+z();
+```
+
+El siguiente diagrama (tomado de [aquí](http://ppc.cs.aalto.fi/ch3/nowait/)) muestra la distribución de tareas en el tiempo (de izquierda a derecha):
+
+<p align="center">
+<img src="https://i.stack.imgur.com/HOY4C.png" alt="alt text" height = 350>
+</p>
+
+
 ## Constructo *Critical*
 Es es un constructo multilinea. Lo que hace es obligar a todos los hilos en la sección a tomar turno para ejecutar la secuencia de instrucciónes dentro de la subsección *critical*.
 ### Ejemplo 4.2 Impresión multiple ordenada
