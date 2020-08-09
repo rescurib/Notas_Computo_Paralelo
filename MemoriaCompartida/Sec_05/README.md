@@ -83,7 +83,7 @@ Ahora la repartición es es mucho más justa. No puede ser perfecta debido a que
 ## Calendarización dinámica
 En el ejemplo anterior teníamos la ventaja de tener de antemano una intución de los tiempos de ejecución para cada hilo en la versión no calendarizada del programa. ¿Qué ocurre cuando sabemos que no serán iguales pero no tenemos idea de la relación entre el tiempo y el índice de iteración? Aquí es cunado debemos usar una calendarización dinamica con *schedule(dynamic,<chunk size>)*. Este tipo de calendarización reparte los indices según la disponibilidad de los hilos en en tiempo de ejecución.
     
-### Ejemplo 5.2 Función de retardo aleatorio
+### Ejemplo 5.2 Función de retardo irregular
 
 Tenemos ahora la siguiente función de tiempos de ejecución irregular:
 ```C
