@@ -7,6 +7,7 @@ Estas notas están basadas en buena parte del libro [Multicore and GPU Programmi
 * Variables privadas y compartidas
 * Paralelización de ciclos *for*
 * Sincronización
+* Calendarización
 
 ## Segunda Parte: Memoria Distribuida
 * Introducción a MPI
