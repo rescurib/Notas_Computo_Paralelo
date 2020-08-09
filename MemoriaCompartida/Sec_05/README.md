@@ -37,41 +37,85 @@ int fibbonacci(int n){
 ```
 Se puede observar que el número de recursiones es dependiente del valor de *n*. Veamos que ocurre si hacemos lo siguiente:
 ```C
-    float thilo,start = omp_get_wtime();
+    float thilo,tglobal,start = omp_get_wtime();
     #pragma omp parallel private(tid,thilo)
     {
         tid = omp_get_thread_num();
 
         #pragma omp for nowait
-        for(i=0;i<40;i++){
+        for(i=0;i<42;i++){
             fibonacci(i);
         }
 
         thilo = omp_get_wtime()-start;
         printf("Hilo %d: %f s \n",tid,thilo);
      }
+     tglobal = omp_get_wtime()-start;
+     printf("Tiempo global: %f s\n",tglobal);
 ```
    La salida del programa en mi máquina fue:
 ```
-Hilo 0: 0.000954 s 
-Hilo 1: 0.001130 s 
-Hilo 2: 0.014102 s 
-Hilo 3: 1.781665 s 
+Hilo 0: 0.000017 s 
+Hilo 1: 0.000479 s 
+Hilo 2: 0.053513 s 
+Hilo 3: 19.142344 s 
+Tiempo global: 19.142582 s
+
 ```
-Lo que demuestra lo que ya sospechabamos. Resolveremos esto de la siguiente forma:
+Lo que demuestra lo que ya sospechabamos. Todo el trabajo se le dejo al hilo 3. Resolveremos esto de la siguiente forma:
 
 ```C
 #pragma omp for nowait schedule(static,1)
-        for(i=0;i<40;i++){
+        for(i=0;i<42;i++){
             fibonacci(i);
         }
 ```
 Ahora el resultado es:
 ```
-Hilo 0: 0.769094 s 
-Hilo 1: 2.113478 s 
-Hilo 2: 2.495267 s 
-Hilo 3: 2.743195 s 
+Hilo 0: 4.312376 s 
+Hilo 1: 7.885260 s 
+Hilo 2: 9.211325 s 
+Hilo 3: 13.015017 s 
+Tiempo global: 13.015040 s
 ```
-Ahora la repartición es es mucho más justa.
+Ahora la repartición es es mucho más justa. No puede ser perfecta debido a que la complejidad del algoritmo recursivo de Fibonacci no es lineal.
+
+## Calendarización dinámica
+En el ejemplo anterior teníamos la ventaja de tener de antemano una intución de los tiempos de ejecución para cada hilo en la versión no calendarizada del programa. ¿Qué ocurre cuando sabemos que no serán iguales pero no tenemos idea de la relación entre el tiempo y el índice de iteración? Aquí es cunado debemos usar una calendarización dinamica con *schedule(dynamic,<chunk size>)*. Este tipo de calendarización reparte los indices según la disponibilidad de los hilos en en tiempo de ejecución.
+    
+### Ejemplo 5.2 Función de retardo aleatorio
+
+Tenemos ahora la siguiente función de tiempos de ejecución irregular:
+```C
+void f(int x){
+    int T[16] = {1,20,30,5,4,20,7,2,1,2,8,5,4,2,8,2};
+    sleep(T[x]);
+}
+```
+Los resultados para una iteracción de 0 a 15 sin calendarizar fue:
+```
+Hilo 2: 16.001228 s 
+Hilo 3: 16.001217 s 
+Hilo 1: 33.001244 s 
+Hilo 0: 56.001286 s 
+Tiempo global: 56.001312 s
+```
+Veamos que ocurre si hacemos esto:
+```C
+#pragma omp for nowait schedule(dynamic,1)
+        for(i=0;i<16;i++){
+            f(i);
+        }
+```
+
+Los resultados ahora fueron:
+```
+Hilo 1: 29.003302 s 
+Hilo 3: 29.003345 s 
+Hilo 2: 30.003145 s 
+Hilo 0: 33.003731 s 
+Tiempo global: 33.003757 s
+```
+Mucho mejor balanceados. La calendarización dinámica no puede encontrar la distribución óptima pero puede mejorar muchisimo el balanceo de carga entre los hilos.
+
 
