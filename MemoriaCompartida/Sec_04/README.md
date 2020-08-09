@@ -127,7 +127,7 @@ En este ejemplo hay dos cosas importantes que hay que comentar. Lo que se busca 
 ## Constructo *Atomic*
 Este contructo es similar a *critical* pero sólo aplica a operaciones sobre una misma variable. Este ejemplo demostrará por que es necesario.
 
-### Ejemplo 4.3 Reducción explcítica
+### Ejemplo 4.3 Reducción explícíta
 En la sección anterior se mostró como ralizar operaciones de reducción automaticamente con la cláusula *reduction*. En este ajemplo haremos la misma operación sin útilizar esa cláusula pero sólo para fines explicativos. Veamos el siguiente código que repite 5 veces la suma paralela de los primeros 500,000 enteros e imprime el resultado cada vez:
 ```C
     for(k=0;k<5;k++){
@@ -168,4 +168,4 @@ Suma total: 445698416
 Suma total: 445698416
 Suma total: 445698416
 ```
-Las condiciones de uso completas de este contructo se pueden encontrar en la documentación de [Atomic](https://www.openmp.org/spec-html/5.0/openmpsu95.html#x126-4840002.17.7).
+Las condiciones de uso completas de este constructo se pueden encontrar en la documentación de [Atomic](https://www.openmp.org/spec-html/5.0/openmpsu95.html#x126-4840002.17.7).
