@@ -4,10 +4,10 @@ En esta seccción trataremos los constructos de OpenMP que permiten administrar 
 
 ## Constructo *Barrier*
 
-Todas la directivas que hemos visto hasta ahora tienen una barrera de sincronización implicita. Esto significa que si un hilo terminó primero la sección o la parte de un ciclo for que le tocaba ejecutar, no avanzara hacía una nueva directiva hasta que el resto termine. Sin embargo no es raro que se requiera una barrera de sincrnización explícita dentro de una sección paralela. Veamos wl siguiente ejemplo.
+Todas la directivas que hemos visto hasta ahora tienen una barrera de sincronización implicita. Esto significa que si un hilo terminó primero la sección o la parte de un ciclo for que le tocaba ejecutar, no avanzará hacía una nueva directiva (o reingresará a una directiva anidada) hasta que el resto termine. Sin embargo no es raro que se requiera una barrera de sincronización explícita dentro de una sección paralela. Veamos el siguiente ejemplo.
 
 ### Ejemplo 4.1: Barrera de sicronización explícita
-Lo que harémos en este ejemplo es simular con un retardo una tarea que toma 3 segundos en completarse que será asignada solo a la mitad de los hilos y la segunda mitad no hará nada. La barrera implicita *#pragma omp barrier* obligará a los hilos sin trabajo a esperar a que los demás hilos terminen.
+Lo que haremos en este ejemplo es simular con un retardo una tarea que toma 3 segundos en completarse que será asignada solo a la mitad de los hilos y la segunda mitad no hará nada. La barrera implicita *#pragma omp barrier* obligará a los hilos sin trabajo a esperar a que los demás hilos terminen.
 
 ```C
  #pragma omp parallel private(tid)
