@@ -15,4 +15,24 @@ La función w(x) es una función cuyo tiempo de ejecución es directamente propo
 
 Observen que la mayor parte de la carga de trabajo se le deja al hilo 3. ¿Cómo podemos arrerlar esto? Con la cláusula **schedule**.
 
+## Calendarización estática
+Este tipo de calendarización reparte los indices del intervalo de iteración entre los hilos no deforma contigua sino con un espaciado de *N* pasos llamado *chunk size*. La sintaxis de la cláusula es *schedule(static,<chunk size>)*. Por ejemplo, para 4 hilos en un intervalo de iteración de 0 a 7 con un *chunk size* de 1 el reparto sería:
+* Hilo 0: 0,4
+* Hilo 1: 1,5
+* Hilo 2: 2,6
+* Hilo 3: 3,7
 
+# Ejemplo 5.1 N-vo número de la serie de Fibonacci recursiva
+Tomemos la versión recursiva del algoritmo de generación de numeros de Fibonacci (muy ineficiente, por cierto, lo cual es bueno para nuestros fines didácticos):
+```C
+int fibbonacci(int n){
+   if(n == 0){
+      return 0;
+   } else if(n == 1){
+      return 1;
+   } else{
+      return (fibbonacci(n-1) + fibbonacci(n-2));
+   }
+}
+```
+Se puede observar que el número de recursiones es dependiente del valor de *n*. Veamos que ocurre si hacemos lo siguiente:
