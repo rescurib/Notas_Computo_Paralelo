@@ -22,7 +22,7 @@ Este tipo de calendarización reparte los indices del intervalo de iteración en
 * Hilo 2: 2,6
 * Hilo 3: 3,7
 
-# Ejemplo 5.1 N-vo número de la serie de Fibonacci recursiva
+### Ejemplo 5.1 N-vo número de la serie de Fibonacci recursiva
 Tomemos la versión recursiva del algoritmo de generación de numeros de Fibonacci (muy ineficiente, por cierto, lo cual es bueno para nuestros fines didácticos):
 ```C
 int fibbonacci(int n){
