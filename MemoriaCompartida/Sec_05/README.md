@@ -36,3 +36,42 @@ int fibbonacci(int n){
 }
 ```
 Se puede observar que el número de recursiones es dependiente del valor de *n*. Veamos que ocurre si hacemos lo siguiente:
+```C
+    float thilo,start = omp_get_wtime();
+    #pragma omp parallel private(tid,thilo)
+    {
+        tid = omp_get_thread_num();
+
+        #pragma omp for nowait
+        for(i=0;i<40;i++){
+            fibonacci(i);
+        }
+
+        thilo = omp_get_wtime()-start;
+        printf("Hilo %d: %f s \n",tid,thilo);
+     }
+```
+   La salida del programa en mi máquina fue:
+```
+Hilo 0: 0.000954 s 
+Hilo 1: 0.001130 s 
+Hilo 2: 0.014102 s 
+Hilo 3: 1.781665 s 
+```
+Lo que demuestra lo que ya sospechabamos. Resolveremos esto de la siguiente forma:
+
+```C
+#pragma omp for nowait schedule(static,1)
+        for(i=0;i<40;i++){
+            fibonacci(i);
+        }
+```
+Ahora el resultado es:
+```
+Hilo 0: 0.769094 s 
+Hilo 1: 2.113478 s 
+Hilo 2: 2.495267 s 
+Hilo 3: 2.743195 s 
+```
+Ahora la repartición es es mucho más justa.
+
