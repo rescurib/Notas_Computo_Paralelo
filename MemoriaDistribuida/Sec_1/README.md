@@ -15,8 +15,27 @@ sudo apt-get install openmpi-bin openmpi-common openmpi-doc libopenmpi-dev
 
 Si tienen la curiosidad de construir su propio cluster con varias computadoras en red, [aquí](http://mpi-cluster.blogspot.com/p/blog-page.html) hay un tutorial para configurarlo. Para usar el API con una sola PC no es necesario configurar nada después de instalar. 
 
+## Conceptos básicos
+**Communicator Group**. Referido también como *communicator* es un conjunto de procesos. Por defecto, todos los procesos controlados por el programa son asignados a MPI_COMM_WORLD. Este comunicador puede subdividirse en grupos internos (denominados *colores*):
 
-## Ejemplo 0.1
+<p align="center">
+<img src="https://www.codingame.com/servlet/fileservlet?id=14312128064536" alt="alt text" width = 250>
+</p>
+
+Los colores pueden dividirse en nuevos comunicadores con nombres definidos por el programador:
+
+<p align="center">
+<img src="https://www.codingame.com/servlet/fileservlet?id=14312136027966" alt="alt text" width = 700>
+</p>
+
+**Rank**. Es el nombre que recibe el identificar relativo al comunicador para cada proceso (es similar al identificador de hilo en OpenMP).
+
+**Estructura elemental de un programa de MPI**. Todas las intrucciones de MPI deben estar después de la función de inicialización *MPI_Init()* y antes de *MPI_Finalize()*. 
+
+**Ejecución multi-proceso**. La manera en que un programa de MPI se ejecuta es un poco dificil de entender al principio. Cada programa es copiado *N* veces y ejecutado en *N* procesos distintos que pueden estar en *K* (menor o igual a *N*) computadoras distintas. La pregunta que nos hemos hecho todos al principio es: ¿cómo puedo hacer cosas distintas si el programa es el mismo para todos los procesos? La respuesta: siendo ingeniesos con el manejo de los rangos y con el uso de las funciones de envío y recepción de datos. 
+
+## Ejemplo 1.1 Impresión de rangos
+
 ```C
 #include <mpi.h>
 #include <stdio.h>
@@ -41,12 +60,12 @@ int main(int argc, char **argv){
 }
 ```
 
-Compilación:
+La compilación de los programas de MPI requieren el compilador mpicc (que se instaló junto con Open MPI o MPICH):
 ```
 mpicc ejemplo0_1.c -p ej01.o
 ```
 
-Ejecución:
+Para ejecutar el programa se requiere *mprun*. El atributo *-np* define el número de procesos. En este ejemplo abriremos 8:
 ```
 mpirun -np 8 ej01.o
 ```
