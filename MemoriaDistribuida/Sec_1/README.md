@@ -32,7 +32,7 @@ Los colores pueden dividirse en nuevos comunicadores con nombres definidos por e
 
 **Estructura elemental de un programa de MPI**. Todas las intrucciones de MPI deben estar después de la función de inicialización *MPI_Init()* y antes de *MPI_Finalize()*. 
 
-**Ejecución multi-proceso**. La manera en que un programa de MPI se ejecuta es un poco dificil de entender al principio. El proceso padre es ejecutado en la computadora desde dónde haya sido llamado el archivo ejecutable. El segmento paralelo es copiado *N* veces y ejecutado en *N* procesos distintos que pueden estar en *K* (menor o igual a *N*) computadoras distintas. La pregunta que nos hemos hecho todos al principio es: ¿cómo puedo hacer cosas distintas si el programa es el mismo para todos los procesos? La respuesta: siendo ingeniesos con el manejo de los rangos y con el uso de las funciones de envío y recepción de datos. 
+**Ejecución multi-proceso**. La manera en que un programa de MPI se ejecuta es un poco dificil de entender al principio. El proceso padre es ejecutado en la computadora desde dónde haya sido llamado el archivo ejecutable. El segmento paralelo es copiado *N* veces y ejecutado en *N* procesos distintos que pueden estar en *K* (menor o igual a *N*) computadoras distintas conectadas en la red de trabajo (pueden estar en diferentes partes del mundo). La pregunta que nos hemos hecho todos al principio es: ¿cómo puedo hacer cosas distintas si el programa es el mismo para todos los procesos? La respuesta: siendo ingeniesos con el manejo de los rangos y con el uso de las funciones de envío y recepción de datos. 
 
 <p align="center">
 <img src="https://skirt.ugent.be/skirt9/mpi_initfinal.png">
