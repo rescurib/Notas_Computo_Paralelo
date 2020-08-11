@@ -18,6 +18,7 @@ Estas notas están basadas en buena parte del libro [Multicore and GPU Programmi
 * Scatterv y Gatherv 
 
 Para seguir estas notas necesario tener conocimientos de Linux y lenguaje C. Para reposo o primer estudio, se sugiere seguir la siguiente guía bibliográfica:  
+
 <p align="center">
 <img src="http://drive.google.com/uc?export=view&id=16NEQZV24EaehcWp_GKnrIOO_2P1b-wHI" width=720>
 </p>
