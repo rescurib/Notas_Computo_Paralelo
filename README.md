@@ -17,7 +17,7 @@ Estas notas están basadas en buena parte del libro [Multicore and GPU Programmi
 * Reduce y Allreduce
 * Scatterv y Gatherv 
 
-Para seguir estas notas necesario tener conocimientos de Linux y lenguaje C. Para reposo o primer estudio, se sugiere seguir la siguiente guía bibliográfica:  
+Para seguir estas notas necesario tener conocimientos de Linux y lenguaje C. Para repaso o primer estudio, se sugiere seguir la siguiente guía bibliográfica:  
 
 <p align="center">
 <img src="https://1.bp.blogspot.com/-DZqxwtAum1c/XzL1ERvBX8I/AAAAAAAACY8/2BB49r94lScX6ZQWHibmsP_swatbWS5hwCPcBGAYYCw/d/Guia%2BLinux%2By%2BLenguje%2BC.png" width=720>
