@@ -34,6 +34,10 @@ Los colores pueden dividirse en nuevos comunicadores con nombres definidos por e
 
 **Ejecución multi-proceso**. La manera en que un programa de MPI se ejecuta es un poco dificil de entender al principio. El proceso padre es ejecutado en la computadora desde dónde haya sido llamado el archivo ejecutable. El segmento paralelo es copiado *N* veces y ejecutado en *N* procesos distintos que pueden estar en *K* (menor o igual a *N*) computadoras distintas. La pregunta que nos hemos hecho todos al principio es: ¿cómo puedo hacer cosas distintas si el programa es el mismo para todos los procesos? La respuesta: siendo ingeniesos con el manejo de los rangos y con el uso de las funciones de envío y recepción de datos. 
 
+<p align="center">
+<img src="https://skirt.ugent.be/skirt9/mpi_initfinal.png">
+</p>
+
 ## Ejemplo 1.1 Impresión de rangos
 
 ```C
@@ -65,7 +69,18 @@ La compilación de los programas de MPI requieren el compilador mpicc (que se in
 mpicc ejemplo0_1.c -p ej01.o
 ```
 
-Para ejecutar el programa se requiere *mprun*. El atributo *-np* define el número de procesos. En este ejemplo abriremos 8:
+Para ejecutar el programa se requiere *mpirun*. El atributo *-np* define el número de procesos. En este ejemplo abriremos 8:
 ```
 mpirun -np 8 ej01.o
+```
+De forma similar a lo que ocurría con las ejecuciones de programas multihilo, la ejecución de los rangos no tiene por qué ser secuencial:
+```
+Hola desde el proceso 0 de 8
+Hola desde el proceso 3 de 8
+Hola desde el proceso 7 de 8
+Hola desde el proceso 6 de 8
+Hola desde el proceso 4 de 8
+Hola desde el proceso 5 de 8
+Hola desde el proceso 1 de 8
+Hola desde el proceso 2 de 8
 ```
