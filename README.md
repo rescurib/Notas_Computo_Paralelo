@@ -20,6 +20,6 @@ Estas notas están basadas en buena parte del libro [Multicore and GPU Programmi
 Para seguir estas notas necesario tener conocimientos de Linux y lenguaje C. Para reposo o primer estudio, se sugiere seguir la siguiente guía bibliográfica:  
 
 <p align="center">
-<img src="http://drive.google.com/uc?export=view&id=16NEQZV24EaehcWp_GKnrIOO_2P1b-wHI" width=720>
+<img src="https://1.bp.blogspot.com/-S3bnTCYGDew/XzLlrPc3xLI/AAAAAAAACYw/7m9ToB02glwLhoZ-jqxlSGQkvOqqOwWPQCLcBGAsYHQ/d/Guia%2BLinux%2By%2BLenguje%2BC.png" width=720>
 </p>
 
