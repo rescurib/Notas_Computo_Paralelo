@@ -38,6 +38,8 @@ Los colores pueden dividirse en nuevos comunicadores con nombres definidos por e
 <img src="https://skirt.ugent.be/skirt9/mpi_initfinal.png">
 </p>
 
+Las flechas verticales bidireccionales representan el envío/recepción de mensajes entre los procesos.
+
 ## Ejemplo 1.1 Impresión de rangos
 
 ```C
