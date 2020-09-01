@@ -34,4 +34,30 @@ int MPI_Recv(
 Pueden consular la lista completa de tipos [aquí](https://www.mpich.org/static/docs/latest/www3/Constants.html).
 
 ## Ejemplo 2.1 Envío recepción de un array de enteros
-Ene este ejemplo vamos a envíar desde el proceso 0 un array de enteros de 100 elementos.
+En este ejemplo vamos a envíar desde el proceso 0 un array de enteros de 100 elementos.
+
+```C
+   //---- Si es el proceso maestro ----
+    if(rank == 0)
+    {
+        // Memoria para el buffer de envío
+    	int *A = (int*) malloc(N*sizeof(int));
+
+        //Llenado de Arreglo
+        for(i=0;i<N;i++) A[i]=i;
+        
+        //Envío
+        MPI_Send(A,N,MPI_INT,1,0,MPI_COMM_WORLD);  
+    }
+
+    //---Si es el rango 1 ---
+    if(rank==1)
+    {
+        // Memoria para el buffer de recepción
+    	int *Arec = (int*) malloc(N*sizeof(int));
+
+        //Envío
+        MPI_Recv(Arec,N,MPI_INT,0,0,MPI_COMM_WORLD,&estado); 
+    }
+    ```
+    Es importante entender que las asignaciones de memoria de los buffers de envío y recepción ocurren en procesos diferentes (o computadoras diferentes si fuera el caso de un cluster).
