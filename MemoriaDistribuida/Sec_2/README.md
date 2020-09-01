@@ -59,5 +59,5 @@ En este ejemplo vamos a envíar desde el proceso 0 un array de enteros de 100 el
         //Envío
         MPI_Recv(Arec,N,MPI_INT,0,0,MPI_COMM_WORLD,&estado); 
     }
-    ```
-    Es importante entender que las asignaciones de memoria de los buffers de envío y recepción ocurren en procesos diferentes (o computadoras diferentes si fuera el caso de un cluster).
+```
+Es importante entender que las asignaciones de memoria de los buffers de envío y recepción ocurren en procesos diferentes (o computadoras diferentes si fuera el caso de un cluster).
