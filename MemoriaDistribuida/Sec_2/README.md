@@ -34,3 +34,4 @@ int MPI_Recv(
 Pueden consular la lista completa de tipos [aquí](https://www.mpich.org/static/docs/latest/www3/Constants.html).
 
 ## Ejemplo 2.1 Envío recepción de un array de enteros
+Ene este ejemplo vamos a envíar desde el proceso 0 un array de enteros de 100 elementos.
