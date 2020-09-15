@@ -60,4 +60,19 @@ En este ejemplo vamos a envíar desde el proceso 0 un array de enteros de 100 el
         MPI_Recv(Arec,N,MPI_INT,0,0,MPI_COMM_WORLD,&estado); 
     }
 ```
-Es importante entender que las asignaciones de memoria de los buffers de envío y recepción ocurren en procesos diferentes (o computadoras diferentes si fuera el caso de un cluster).
+Es importante entender que las asignaciones de memoria de los buffers de envío y recepción ocurren en procesos diferentes (o computadoras diferentes si fuera el caso de un cluster). En mi caso particular esto me fue motivo de confución al principio, pero es una idea sencilla una vez que se visualiza. Tomense en cuenta de que las visualizaciones de las salidas estándar siempre se hacen en el equipo que esté corriendo al proceso maestro.
+
+En teoría se puede realizar computo paralelo con memoria distribuida unicamente como las 6 funciones de MPI que ya hemos visto hasta ahora:
+
+* MPI_Init()
+* MPI_Comm_rank()
+* MPI_Comm_size()
+* MPI_Send()
+* MPI_Recv()
+* MPI_Finalize()
+
+Lo único que resta es la creatividad y la astucia del programador. Pero desarollar algorimos paralelos ya es una tarea díficil por lo que es importante ahorrar el trabajo de la implemantación de esquemas de comunicación eficientes, entre otras subtareas.
+
+## Ejemplo 2.2 Transmición eficiente
+
+Antes de hablar de la función MPI_Broadcast() será útil realizar un ejemplo que mostrará porque las comunicaciones eficientes no son un asunto trivial. 
