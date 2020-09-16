@@ -86,7 +86,7 @@ Hola desde el proceso 5 de 8
 Hola desde el proceso 1 de 8
 Hola desde el proceso 2 de 8
 ```
-## Técinas de paralelismo: SPMD y MPMD
+## Técninas de paralelismo: SPMD y MPMD
 En esta sección hemos hablado de como un mismo programa es copiado y ejecutado como procesos diferentes. Incluso con OpenMP ocurría el mismo prinicipio pero a nivel de secciones de código e hilos: una misma sección paralela era ejecutada en diferentes hilos. Cuando esta técnica se utiliza para procesar diferentes partes de un mismo conjunto de datos recibe el nombre de *Single Program Multiple Data* (SPMD). Esta técnica tiene la ventaja de ser escalable si se diseña el programa de manera ingeniosa. Es decir, si un mismo programa se le da la capacidad de auto-organizarse para repartir el trabajo entre sus gemelos. 
 
 Cuando se permite tener programas distintos para diferentes procesos dónde cada uno procesa diferentes secciones de un mismo conjunto de datos se denomina *Multple Program Multiple Data* (MPMD). MPI también permite ejecutar programas completamente diferentes en procesos independientes de la siguiente forma:
