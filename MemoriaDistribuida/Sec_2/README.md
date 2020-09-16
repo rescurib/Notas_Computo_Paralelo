@@ -71,8 +71,16 @@ En teoría se puede realizar computo paralelo con memoria distribuida unicamente
 * MPI_Recv()
 * MPI_Finalize()
 
-Lo único que resta es la creatividad y la astucia del programador. Pero desarollar algorimos paralelos ya es una tarea díficil por lo que es importante ahorrar el trabajo de la implemantación de esquemas de comunicación eficientes, entre otras subtareas.
+Lo único que resta es la creatividad y la astucia del programador. Pero desarollar algorimos paralelos ya es una tarea díficil por lo que es importante ahorrar el trabajo de la implemantación de esquemas de comunicación colectiva (uno-a-muchos, muchos-a-uno) eficientes, entre otras subtareas.
 
-## Ejemplo 2.2 Transmición eficiente
+## Ejemplo 2.2 Transmisión colectiva eficiente
 
-Antes de hablar de la función MPI_Broadcast() será útil realizar un ejemplo que mostrará porque las comunicaciones eficientes no son un asunto trivial. 
+Antes de hablar de la función MPI_Broadcast() será útil realizar un ejemplo que mostrará por qué las comunicaciones colectivas eficientes no son un asunto trivial. Supongamos que queremos enviar un número entero desde el proceso maestro hacia todos los procesos del comunicador de manera que todos los procesos tengan la misma copia de ese dato. ¿Cómo hacemos esto explotando el paralelismo de la ejecución de MPI? Solo por comparación pensemos en la peor manera de hacerlo: un ciclo for desde el proceso maestro en el que se envíe el dato de manera iterativa hacia cada uno de los procesos. Esto es una perdida de tiempo porque aquellos procesos que ya tengan el dato podrían ayudar a envier una copia al resto. Una manera ingeniosa de hacer esta comunicación colectiva es la siguiente: elijamos un número de nodos que sea múltiplo de 2, digamos 16. La distribición del dato se representa gráficamente de la siguiente manera (*Multicore and GPU Programing*, Barlas):
+
+<p align="center">
+<img src="https://1.bp.blogspot.com/-BHYeND9v-EI/X2F_iTnM3TI/AAAAAAAACas/bVjH2o1uBjUvNtLh3By-y4oTuVmQ2ld1gCLcBGAsYHQ/s16000/Broadcast_MPI_FromScratch.png">
+</p>
+<center>Centered text</center>
+
+
+
