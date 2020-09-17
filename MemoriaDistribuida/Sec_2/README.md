@@ -80,7 +80,6 @@ Antes de hablar de la función MPI_Broadcast() será útil realizar un ejemplo q
 <p align="center">
 <img src="https://1.bp.blogspot.com/-BHYeND9v-EI/X2F_iTnM3TI/AAAAAAAACas/bVjH2o1uBjUvNtLh3By-y4oTuVmQ2ld1gCLcBGAsYHQ/s16000/Broadcast_MPI_FromScratch.png">
 </p>
-<center>Centered text</center>
 
 Cada proceso tiene una etiqueta en binario. Si ponen atención en esta etiqueta notarán rápidamente cual es el patrón de envío para cada proceso. La clave esta en el '1' más cernano a la izquierda (más significativo) en la etiqueta del proceso desde el que se envían las copias. El proceso maestro (0000) no tiene unos así que la secuencia inicia de esta forma: 0000 -> 0001,0010,0100,1000. Tomemos el caso de los procesos que le tocan al proceso 2: 0010 -> 0110,1010. Vamos a hora con el 5: 0101 -> 1101 ¿Observan como el 1 más significativo queda fijo y sus denstinos están determinados con despazamientos de 1's hacia la izquiera despues de el? En código nos queda:
 
@@ -120,9 +119,25 @@ Cada proceso tiene una etiqueta en binario. Si ponen atención en esta etiqueta 
     }
     ```
     
-    ## Ejemplo 2.3 Comunicación colectiva con *MPI_Broadcast()*
+    ##Ejemplo 2.3 Comunicación colectiva con *MPI_Bcast()*
     
-    Este ejemplo es exactamente el mismo que el anterior pero simplificado con el uso de una función de comunicación colectiva definida en el estdar de MPI
+    Este ejemplo es exactamente el mismo que el anterior pero simplificado con el uso de una función de comunicación colectiva definida en el estadar de MPI:
+    ```C
+        if (rank == 0) // Si es el proceso maestro
+    {
+        double dato = 683.761; // Dato a trasmitir a todo el Comm.
+        MPI_Bcast(&dato,1,MPI_DOUBLE,0,MPI_COMM_WORLD);
+    }
+
+    else // Para los demás
+    {
+        double dato = 0; 
+        MPI_Bcast(&dato,1,MPI_DOUBLE,0,MPI_COMM_WORLD);
+        printf("Dato recibido: %lf en %d. \n",dato,rank);
+    }
+    ```
+    Se deja como ejercicio hacer un broadcast de un array de 100 doubles. 
+    
 
 
 
