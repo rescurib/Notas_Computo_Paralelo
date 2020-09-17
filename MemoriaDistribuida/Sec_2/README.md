@@ -82,5 +82,8 @@ Antes de hablar de la función MPI_Broadcast() será útil realizar un ejemplo q
 </p>
 <center>Centered text</center>
 
+Cada proceso tiene una etiqueta en binario. Si ponen atención en esta etiqueta notarán rápidamente cual es el patrón de envío para cada proceso. La clave esta en el '1' más cernano a la izquierda en la etiqueta del proceso desde el que se envían las copias. El proceso maestro (0000) no tiene unos así que la secuencia inicia de esta forma: 0000 -> 0001,0010,0100,1000. Tomemos el caso de los procesos que le tocan al proceso 2: 0010 -> 0110,1010. ¿Observan como el 1 del  
+
+
 
 
