@@ -82,7 +82,47 @@ Antes de hablar de la función MPI_Broadcast() será útil realizar un ejemplo q
 </p>
 <center>Centered text</center>
 
-Cada proceso tiene una etiqueta en binario. Si ponen atención en esta etiqueta notarán rápidamente cual es el patrón de envío para cada proceso. La clave esta en el '1' más cernano a la izquierda en la etiqueta del proceso desde el que se envían las copias. El proceso maestro (0000) no tiene unos así que la secuencia inicia de esta forma: 0000 -> 0001,0010,0100,1000. Tomemos el caso de los procesos que le tocan al proceso 2: 0010 -> 0110,1010. ¿Observan como el 1 del  
+Cada proceso tiene una etiqueta en binario. Si ponen atención en esta etiqueta notarán rápidamente cual es el patrón de envío para cada proceso. La clave esta en el '1' más cernano a la izquierda (más significativo) en la etiqueta del proceso desde el que se envían las copias. El proceso maestro (0000) no tiene unos así que la secuencia inicia de esta forma: 0000 -> 0001,0010,0100,1000. Tomemos el caso de los procesos que le tocan al proceso 2: 0010 -> 0110,1010. Vamos a hora con el 5: 0101 -> 1101 ¿Observan como el 1 más significativo queda fijo y sus denstinos están determinados con despazamientos de 1's hacia la izquiera despues de el? En código nos queda:
+
+```C
+    if (rank == 0) // Si es el proceso maestro
+    {
+        int destID = 1;
+        double data = 683.761; // Dato a trasmitir a todo el Comm.
+
+        while (destID < num )
+        {
+            // subconjunto de procesos a enviar el dato
+            MPI_Send (& data ,1,MPI_DOUBLE,destID,MESSTAG,MPI_COMM_WORLD ) ;
+            destID <<= 1;
+        }
+    }
+
+    else // Para los demás
+    {
+        int msbPos = MSB(rank); // Bit más significativo del rango del proc.
+        int srcID = rank^(1 << msbPos); //Rango de la fuente del envío
+
+        printf ("Recibiendo en %i desde %i \n" , rank , srcID ) ;
+
+        double data ;
+        MPI_Recv(&data,1,MPI_DOUBLE,srcID,MESSTAG,MPI_COMM_WORLD,&status);
+        printf("Node #%i recibido: %lf \n",rank,data);
+
+        // Calcular id's de destino
+        int destID = rank | (1 << (msbPos + 1));
+        while (destID < num)
+        {
+            MPI_Send(&data,1,MPI_DOUBLE,destID,MESSTAG,MPI_COMM_WORLD);
+            msbPos ++;
+            destID = rank | (1 << (msbPos + 1));
+        }
+    }
+    ```
+    
+    ## Ejemplo 2.3 Comunicación colectiva con *MPI_Broadcast()*
+    
+    Este ejemplo es exactamente el mismo que el anterior pero simplificado con el uso de una función de comunicación colectiva definida en el estdar de MPI
 
 
 
