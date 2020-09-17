@@ -117,13 +117,14 @@ Cada proceso tiene una etiqueta en binario. Si ponen atención en esta etiqueta 
             destID = rank | (1 << (msbPos + 1));
         }
     }
-    ```
+```
     
-    ##Ejemplo 2.3 Comunicación colectiva con *MPI_Bcast()*
-    
-    Este ejemplo es exactamente el mismo que el anterior pero simplificado con el uso de una función de comunicación colectiva definida en el estadar de MPI:
-    ```C
-        if (rank == 0) // Si es el proceso maestro
+##Ejemplo 2.3 Comunicación colectiva con *MPI_Bcast()*
+
+Este ejemplo es exactamente el mismo que el anterior pero simplificado con el uso de una función de comunicación colectiva definida en el estadar de MPI:
+
+```C
+    if (rank == 0) // Si es el proceso maestro
     {
         double dato = 683.761; // Dato a trasmitir a todo el Comm.
         MPI_Bcast(&dato,1,MPI_DOUBLE,0,MPI_COMM_WORLD);
