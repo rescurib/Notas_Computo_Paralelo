@@ -135,8 +135,8 @@ Cada proceso tiene una etiqueta en binario. Si ponen atención en esta etiqueta 
         MPI_Bcast(&dato,1,MPI_DOUBLE,0,MPI_COMM_WORLD);
         printf("Dato recibido: %lf en %d. \n",dato,rank);
     }
-    ```
-    Se deja como ejercicio hacer un broadcast de un array de 100 doubles. 
+ ```   
+Se deja como ejercicio hacer un broadcast de un array de 100 doubles. 
     
 
 
