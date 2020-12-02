@@ -57,3 +57,10 @@ En este caso harémos que el proceso maestro se quedé con el arreglo entero. Pa
 
         printf("\n");
 ```
+Ejecutando con *mpirun -np 4 a.out* la salida debe ser algo como esto:
+```
+Proceso 0: Yo me quedo el array entero
+Proceso 1. Me toca el segmento: 7,3,1,5,
+Proceso 2. Me toca el segmento: 9,4,1,3,
+Proceso 3. Me toca el segmento: 5,6,8,1,
+```
