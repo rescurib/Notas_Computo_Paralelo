@@ -25,6 +25,9 @@ En este ejemplo vamos a segmentar un arreglo de 16 elementos en 4 secciones que 
 #define  N 16        // Número de elementos del array
 #define Sz N/proc_num //Numero de elementos por proceso
 ```
+El número de procesos será indicado como argumento al ejecutar el programa compilado. 
+
+En este caso harémos que el proceso maestro se quedé con el arreglo entero. Pare esto utilizamos la opción MPI_IN_PLACE en el campo *void\* recv_data* sólo en la parte del programa que es ejecutada por el proceso maestro. Esto hace que los campos recv_count y recv_datatype sean ignorados.
 
 ```C
     //---- Si es el proceso maestro ----
